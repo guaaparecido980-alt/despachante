@@ -1,844 +1,848 @@
-import { useState, useEffect, useRef } from "react";
-
-/* =================================================================
-   DESPACHANTE KAVISKI — SITE PREMIUM v2.0
-   Identidade: Preto + Amarelo | Desde 1971 | Curitiba/PR
-   ================================================================= */
-
-const WA = "https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20preciso%20de%20atendimento.";
-const TEL1 = "(41) 3222-8060";
-const TEL2 = "(41) 3027-8060";
-const EMAIL = "atendimento@despachantekaviski.com.br";
-const ADDR = "Alameda Cabral, 36 — Centro, Curitiba/PR";
-const CEP = "80.410-210";
-
-/* ── Intersection Observer ── */
-function useInView(t = 0.12) {
-  const r = useRef(null);
-  const [v, setV] = useState(false);
-  useEffect(() => {
-    const el = r.current;
-    if (!el) return;
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setV(true); o.unobserve(el); } }, { threshold: t });
-    o.observe(el);
-    return () => o.disconnect();
-  }, [t]);
-  return [r, v];
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Despachante Kaviski | Despachante em Curitiba desde 1971 — Transferência, Licenciamento e Documentação Veicular</title>
+<meta name="description" content="Despachante em Curitiba com mais de 50 anos de tradição. Transferência de veículo, licenciamento, emplacamento 0km e regularização documental com segurança e agilidade. Atendimento rápido pelo WhatsApp.">
+<meta property="og:title" content="Despachante Kaviski | Documentação Veicular em Curitiba desde 1971">
+<meta property="og:description" content="Mais de 50 anos resolvendo documentação veicular em Curitiba. Transferência, licenciamento, emplacamento e regularização com segurança.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Despachante Kaviski",
+  "image":"https://www.despachantekaviski.com.br/wp-content/uploads/2021/08/kaviskilogo.png",
+  "url":"https://www.despachantekaviski.com.br",
+  "telephone":["(41) 3222-8060","(41) 3027-8060"],
+  "email":"atendimento@despachantekaviski.com.br",
+  "address":{"@type":"PostalAddress","streetAddress":"Alameda Cabral, 36","addressLocality":"Curitiba","addressRegion":"PR","postalCode":"80410-210","addressCountry":"BR"},
+  "geo":{"@type":"GeoCoordinates","latitude":-25.4284,"longitude":-49.2733},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}
+  ],
+  "foundingDate":"1971",
+  "founder":{"@type":"Person","name":"João Antonio Kaviski"},
+  "description":"Despachante de veículos em Curitiba desde 1971. Transferência, licenciamento, emplacamento e regularização documental.",
+  "areaServed":{"@type":"City","name":"Curitiba"}
 }
-
-function Reveal({ children, delay = 0, className = "", y = 36 }) {
-  const [ref, vis] = useInView();
-  return (
-    <div ref={ref} className={className} style={{
-      opacity: vis ? 1 : 0,
-      transform: vis ? "none" : `translateY(${y}px)`,
-      transition: `opacity .7s cubic-bezier(.16,1,.3,1) ${delay}s, transform .7s cubic-bezier(.16,1,.3,1) ${delay}s`,
-    }}>{children}</div>
-  );
-}
-
-/* ── Inline Icons ── */
-const I = {
-  shield: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-  clock: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
-  pin: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>,
-  users: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>,
-  phone: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>,
-  wa: <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>,
-  mail: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
-  arrow: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>,
-  check: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
-  star: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-  car: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a1 1 0 00-.8-.4H5.24a2 2 0 00-1.8 1.1l-.8 1.63A6 6 0 002 12.28V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>,
-  file: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>,
-  award: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>,
-  refresh: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>,
-  clipboard: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>,
-  search: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
-  chevDown: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>,
-  menu: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>,
-  x: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
-  ig: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>,
-  fb: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>,
-  send: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
-  alert: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
-  lock: <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>,
-};
-
-/* ── Data ── */
-const services = [
-  { icon: I.refresh, title: "Transferência de Veículo", sub: "sem burocracia e com orientação completa", desc: "Toda a regularização da transferência de propriedade conduzida pela nossa equipe, do início ao fim. Você não precisa enfrentar filas ou processos confusos.", benefit: "Processo ágil, seguro e sem complicação para você." },
-  { icon: I.car, title: "Primeiro Emplacamento 0km", sub: "rápido, seguro e com livre escolha de placa", desc: "Documentação e emplacamento do seu veículo novo com agilidade. Possibilidade de escolher a placa desejada com acréscimo.", benefit: "Seu carro novo nas ruas com toda a documentação em dia." },
-  { icon: I.clipboard, title: "Licenciamento Anual", sub: "sem risco de atraso ou irregularidade", desc: "Quitação de débitos e emissão do CRLV digital dentro do prazo legal, evitando multas e complicações para você.", benefit: "Veículo sempre regularizado, sem surpresas." },
-  { icon: I.file, title: "2ª Via de Documentos", sub: "reposição rápida do CRV, CRLV e recibo", desc: "Emissão de segunda via de documentos veiculares extraviados, danificados ou roubados com processo simplificado.", benefit: "Documento reposto com rapidez e sem dor de cabeça." },
-  { icon: I.search, title: "Regularização Documental", sub: "diagnóstico e correção de pendências", desc: "Análise completa da situação do veículo, alteração de dados, baixa de circulação e resolução de irregularidades.", benefit: "Qualquer pendência identificada e resolvida pela nossa equipe." },
-  { icon: I.award, title: "Consultoria Especializada", sub: "orientação para casos complexos e multas", desc: "Recurso de multas, orientação documental para situações específicas e acompanhamento com mais de 50 anos de experiência no setor.", benefit: "Experiência real aplicada ao seu caso particular." },
-];
-
-const steps = [
-  { n: "01", t: "Você nos chama", d: "Fale pelo WhatsApp, telefone ou formulário. Conte o que precisa resolver." },
-  { n: "02", t: "Analisamos seu caso", d: "Nossa equipe avalia a documentação e orienta exatamente o que é necessário." },
-  { n: "03", t: "Conduzimos o processo", d: "Cuidamos de toda a burocracia junto ao DETRAN e órgãos competentes." },
-  { n: "04", t: "Você recebe tudo pronto", d: "Documentação finalizada com acompanhamento e total transparência." },
-];
-
-const faqs = [
-  { q: "Quais documentos preciso para transferir um veículo em Curitiba?", a: "Para pessoa física: documento com foto, CPF, comprovante de endereço, CRV original e débitos quitados. Para pessoa jurídica, também são necessários CNPJ e comprovante de poderes. Entre em contato e orientamos seu caso específico." },
-  { q: "Quanto tempo leva para regularizar a documentação do veículo?", a: "O prazo depende do serviço e da demanda do DETRAN, mas trabalhamos para concluir no menor tempo possível. A maioria das transferências é finalizada em poucos dias úteis." },
-  { q: "Posso iniciar meu atendimento pelo WhatsApp?", a: "Sim. Você pode enviar sua demanda e documentos diretamente pelo WhatsApp. Nossa equipe responde rapidamente e conduz todo o processo." },
-  { q: "Vocês atendem só Curitiba ou também a região metropolitana?", a: "Nosso escritório fica no Centro de Curitiba, com acesso fácil para toda a cidade e região metropolitana. Também atendemos clientes de outros estados através de parcerias." },
-  { q: "Quais serviços de despachante vocês oferecem em Curitiba?", a: "Transferência de veículos, primeiro emplacamento (0km), licenciamento anual, 2ª via de CRV e CRLV, baixa de circulação, alteração de dados, regularização documental, recursos de multas e consultoria especializada." },
-  { q: "Preciso ir pessoalmente ao escritório do despachante?", a: "Nem sempre. Muitos serviços podem ser iniciados pelo WhatsApp ou telefone. Quando necessário, nosso escritório fica na Alameda Cabral, 36 — Centro de Curitiba, com fácil acesso." },
-  { q: "Qual o horário de funcionamento da Despachante Kaviski?", a: "De segunda a sexta-feira, das 9h às 18h, e aos sábados das 9h às 12h." },
-];
-
-/* ── Styles ── */
-const css = `
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
-
+</script>
+<style>
 :root {
-  --black: #050505;
-  --black-2: #0A0A0A;
-  --black-3: #111111;
-  --graphite: #1A1A1A;
-  --gray-dark: #2A2A2A;
-  --yellow: #F2D500;
-  --yellow-bright: #FFD600;
-  --yellow-gold: #E6C200;
-  --yellow-hover: #FFDF33;
-  --white: #FFFFFF;
-  --off-white: #F5F5F5;
-  --gray-light: #D9D9D9;
-  --gray-text: #BDBDBD;
-  --gray-muted: #8C8C8C;
-  --green-wa: #25D366;
-  --red-alert: #D32F2F;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'Sora', -apple-system, sans-serif;
-  --radius: 10px;
-  --radius-sm: 6px;
-  --radius-lg: 16px;
-  --tr: .3s cubic-bezier(.22,1,.36,1);
+  --bk: #050505;
+  --bk2: #0A0A0A;
+  --bk3: #111;
+  --gr: #1A1A1A;
+  --gr2: #2A2A2A;
+  --y: #F2D500;
+  --yb: #FFD600;
+  --yg: #E6C200;
+  --yh: #FFDF33;
+  --w: #FFF;
+  --ow: #F5F5F5;
+  --gl: #D9D9D9;
+  --gt: #BDBDBD;
+  --gm: #8C8C8C;
+  --gw: #25D366;
+  --rd: #D32F2F;
+  --fd: 'Instrument Serif', Georgia, serif;
+  --fb: 'Sora', sans-serif;
+  --r: 10px;
+  --rs: 6px;
+  --t: .3s ease;
 }
 
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{font-family:var(--font-body);color:var(--gray-text);background:var(--black);line-height:1.7;overflow-x:hidden}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--fb); color: var(--gt); background: var(--bk); line-height: 1.65; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
 
-.ctn{max-width:1160px;margin:0 auto;padding:0 24px}
-.sec{padding:96px 0}
-.sec-white{background:var(--off-white);color:var(--black)}
-.sec-black{background:var(--black)}
-.sec-graphite{background:var(--graphite)}
+.ctn { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.sec { padding: 84px 0; }
+.sec-w { background: var(--ow); color: var(--bk); }
+.sec-b { background: var(--bk); }
 
-/* ─── Header ─── */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background .4s,box-shadow .4s,backdrop-filter .4s}
-.hdr.solid{background:rgba(5,5,5,.95);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(242,213,0,.08)}
-.hdr-in{max-width:1160px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{text-decoration:none;display:flex;flex-direction:column}
-.logo-main{font-family:var(--font-display);font-size:26px;color:var(--white);letter-spacing:-.01em;line-height:1.1}
-.logo-main em{font-style:italic;color:var(--yellow)}
-.logo-sub{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gray-muted);font-family:var(--font-body)}
-.nav{display:flex;align-items:center;gap:28px}
-.nav a{color:var(--gray-text);text-decoration:none;font-size:13px;font-weight:500;transition:color var(--tr);letter-spacing:.02em}
-.nav a:hover{color:var(--yellow)}
-.nav-cta{background:var(--yellow)!important;color:var(--black)!important;padding:10px 22px;border-radius:100px;font-weight:700!important;font-size:12px!important;letter-spacing:.04em!important;text-transform:uppercase;transition:all var(--tr)!important}
-.nav-cta:hover{background:var(--yellow-hover)!important;transform:translateY(-1px)}
-.mob-tog{display:none;background:none;border:none;color:var(--white);cursor:pointer;padding:8px}
-.mob-menu{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;pointer-events:none;transition:opacity .3s}
-.mob-menu.open{opacity:1;pointer-events:all}
-.mob-menu a{color:var(--white);text-decoration:none;font-size:18px;font-weight:500}
-.mob-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--white);cursor:pointer}
-
-/* ─── Hero ─── */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;background:var(--black);overflow:hidden}
-.hero::before{content:'';position:absolute;top:-30%;right:-15%;width:70%;height:160%;background:radial-gradient(ellipse,rgba(242,213,0,.04) 0%,transparent 70%);pointer-events:none}
-.hero-grain{position:absolute;inset:0;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
-.hero-line{position:absolute;left:50%;top:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(242,213,0,.08) 30%,rgba(242,213,0,.08) 70%,transparent);pointer-events:none}
-.hero-ct{position:relative;z-index:2;padding:140px 0 120px;max-width:720px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(242,213,0,.06);border:1px solid rgba(242,213,0,.15);border-radius:100px;padding:7px 18px;margin-bottom:28px;font-size:12px;font-weight:600;color:var(--yellow);letter-spacing:.08em;text-transform:uppercase}
-.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);animation:pls 2s infinite}
-@keyframes pls{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:var(--font-display);font-size:clamp(36px,5.2vw,64px);font-weight:400;line-height:1.12;color:var(--white);margin-bottom:20px;letter-spacing:-.01em}
-.hero h1 .yl{color:var(--yellow)}
-.hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--gray-text);max-width:520px;margin-bottom:28px;line-height:1.75}
-.hero-bullets{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:32px}
-.hero-bullet{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--white)}
-.hero-bullet svg{color:var(--yellow);flex-shrink:0}
-.hero-acts{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
-.btn-y{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:var(--black);padding:16px 32px;border-radius:100px;font-weight:700;font-size:14px;text-decoration:none;transition:all var(--tr);border:none;cursor:pointer;letter-spacing:.02em}
-.btn-y:hover{background:var(--yellow-hover);transform:translateY(-2px);box-shadow:0 8px 32px rgba(242,213,0,.25)}
-.btn-o{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--white);padding:16px 32px;border-radius:100px;font-weight:600;font-size:14px;text-decoration:none;transition:all var(--tr);border:1px solid rgba(255,255,255,.15)}
-.btn-o:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.3)}
-.hero-micro{font-size:12px;color:var(--gray-muted);margin-top:8px;display:flex;align-items:center;gap:6px}
-.hero-bar{position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(5,5,5,.7);backdrop-filter:blur(12px);border-top:1px solid rgba(242,213,0,.06)}
-.hero-bar-in{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
-.hero-bar a,.hero-bar span{display:flex;align-items:center;gap:7px;color:var(--gray-text);font-size:13px;font-weight:500;text-decoration:none;transition:color var(--tr)}
-.hero-bar a:hover{color:var(--yellow)}
-
-/* ─── Trust Strip ─── */
-.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
-.trust-card{background:var(--graphite);padding:36px 24px;text-align:center;transition:all var(--tr);border-bottom:2px solid transparent}
-.trust-card:hover{border-bottom-color:var(--yellow);background:var(--gray-dark)}
-.trust-icon{color:var(--yellow);margin-bottom:12px;display:flex;justify-content:center}
-.trust-t{font-family:var(--font-display);font-size:20px;color:var(--white);margin-bottom:6px}
-.trust-d{font-size:13px;color:var(--gray-muted);line-height:1.5}
-
-/* ─── Services ─── */
-.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-.srv-card{background:var(--graphite);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:32px 26px;transition:all var(--tr);position:relative;overflow:hidden}
-.srv-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--yellow);transform:scaleX(0);transform-origin:left;transition:transform .4s}
-.srv-card:hover{background:var(--gray-dark);border-color:rgba(242,213,0,.1);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
-.srv-card:hover::after{transform:scaleX(1)}
-.srv-icon{color:var(--yellow);margin-bottom:16px}
-.srv-title{font-family:var(--font-display);font-size:20px;color:var(--white);line-height:1.25}
-.srv-sub{font-size:13px;color:var(--yellow-gold);margin-bottom:10px;font-weight:500}
-.srv-desc{font-size:13px;color:var(--gray-text);margin-bottom:14px;line-height:1.65}
-.srv-benefit{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray-muted);margin-bottom:18px}
-.srv-benefit svg{color:var(--yellow);flex-shrink:0;margin-top:1px}
-.srv-link{display:inline-flex;align-items:center;gap:6px;color:var(--yellow);font-size:13px;font-weight:700;text-decoration:none;transition:all var(--tr);letter-spacing:.02em}
-.srv-link:hover{color:var(--yellow-hover);gap:10px}
-
-/* ─── Steps ─── */
-.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:48px}
-.step{text-align:center;position:relative}
-.step-n{font-family:var(--font-display);font-size:52px;color:var(--yellow);opacity:.18;line-height:1;margin-bottom:10px}
-.step-t{font-family:var(--font-display);font-size:18px;color:var(--black);margin-bottom:6px}
-.step-d{font-size:13px;color:var(--gray-muted);line-height:1.6}
-.step-line{position:absolute;top:28px;left:100%;width:100%;height:1px;background:var(--gray-light);pointer-events:none}
-
-/* ─── Urgency ─── */
-.urg{background:var(--black-2);border-top:1px solid rgba(211,47,47,.12);border-bottom:1px solid rgba(211,47,47,.12)}
-.urg-layout{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.urg-icon{color:var(--red-alert);margin-bottom:16px}
-.urg-list{display:flex;flex-direction:column;gap:14px}
-.urg-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:var(--gray-text);line-height:1.6}
-.urg-item svg{color:var(--red-alert);flex-shrink:0;margin-top:3px}
-
-/* ─── Reasons ─── */
-.reasons-layout{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.reasons-list{display:flex;flex-direction:column;gap:12px}
-.reason{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--black);font-weight:500;padding:14px 18px;border-radius:var(--radius-sm);background:var(--white);border:1px solid var(--gray-light);transition:all var(--tr)}
-.reason:hover{border-color:var(--yellow);box-shadow:0 2px 12px rgba(242,213,0,.08)}
-.reason svg{color:var(--yellow-gold);flex-shrink:0}
-
-/* ─── History ─── */
-.hist-ct{max-width:660px}
-.hist-year{font-family:var(--font-display);font-size:88px;color:rgba(242,213,0,.08);line-height:1;margin-bottom:-24px}
-.hist-txt{font-size:15px;color:var(--gray-text);line-height:1.8}
-.hist-txt p{margin-bottom:14px}
-.hist-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(242,213,0,.06);border:1px solid rgba(242,213,0,.12);border-radius:var(--radius-sm);padding:14px 22px;margin-top:16px;color:var(--yellow);font-weight:600;font-size:14px}
-.hist-stats{display:flex;flex-direction:column;gap:20px}
-.hist-stat{background:var(--graphite);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:24px}
-.hist-stat-n{font-family:var(--font-display);font-size:30px;color:var(--yellow);margin-bottom:2px}
-.hist-stat-l{font-size:12px;color:var(--gray-muted);font-weight:500}
-
-/* ─── Testimonials ─── */
-.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-.test-card{background:var(--white);border:1px solid var(--gray-light);border-radius:var(--radius);padding:28px 24px;transition:all var(--tr)}
-.test-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06);border-color:var(--yellow)}
-.test-stars{display:flex;gap:2px;color:var(--yellow);margin-bottom:14px}
-.test-txt{font-size:14px;color:var(--gray-dark);line-height:1.7;font-style:italic;margin-bottom:18px}
-.test-author{font-weight:700;font-size:13px;color:var(--black)}
-.test-role{font-size:12px;color:var(--gray-muted)}
-
-/* ─── FAQ ─── */
-.faq-list{max-width:760px;margin:48px auto 0}
-.faq-item{border-bottom:1px solid rgba(255,255,255,.06)}
-.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 0;background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:var(--white);text-align:left;font-family:var(--font-body);transition:color var(--tr)}
-.faq-q:hover{color:var(--yellow)}
-.faq-chev{transition:transform .3s;flex-shrink:0;margin-left:16px;color:var(--yellow)}
-.faq-chev.open{transform:rotate(180deg)}
-.faq-a{overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1),padding .4s;max-height:0}
-.faq-a.open{max-height:300px;padding:0 0 22px}
-.faq-a p{font-size:14px;color:var(--gray-text);line-height:1.7}
-
-/* ─── CTA Final ─── */
-.cta-f{text-align:center;padding:96px 0;background:linear-gradient(135deg,var(--graphite),var(--black-2));position:relative;overflow:hidden}
-.cta-f::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(242,213,0,.04),transparent 70%);pointer-events:none}
-.cta-f h2{font-family:var(--font-display);font-size:clamp(28px,4vw,46px);color:var(--white);margin-bottom:14px}
-.cta-f p{font-size:17px;color:var(--gray-text);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
-
-/* ─── Contact ─── */
-.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.contact-info{display:flex;flex-direction:column;gap:18px;margin-top:24px}
-.contact-item{display:flex;align-items:center;gap:10px;color:var(--gray-dark);font-size:14px;font-weight:500;text-decoration:none;transition:color var(--tr)}
-a.contact-item:hover{color:var(--yellow-gold)}
-.contact-hours{margin-top:24px;padding:18px 22px;background:var(--white);border:1px solid var(--gray-light);border-radius:var(--radius-sm);font-size:13px;color:var(--gray-muted);line-height:1.7}
-.contact-hours strong{color:var(--black);display:block;margin-bottom:4px}
-.form-box{background:var(--white);border:1px solid var(--gray-light);border-radius:var(--radius);padding:32px 28px;box-shadow:0 4px 24px rgba(0,0,0,.04)}
-.fg{margin-bottom:18px}
-.fl{display:block;font-size:12px;font-weight:600;color:var(--black);margin-bottom:5px;letter-spacing:.03em;text-transform:uppercase}
-.fi{width:100%;padding:13px 16px;border:1px solid var(--gray-light);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-body);background:var(--off-white);transition:all var(--tr);color:var(--black)}
-.fi:focus{outline:none;border-color:var(--yellow);box-shadow:0 0 0 3px rgba(242,213,0,.12);background:var(--white)}
-.fi::placeholder{color:var(--gray-muted)}
-textarea.fi{resize:vertical;min-height:100px}
-.btn-form{width:100%;padding:15px;background:var(--yellow);color:var(--black);border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;transition:all var(--tr);font-family:var(--font-body);display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.02em}
-.btn-form:hover{background:var(--yellow-hover)}
-
-/* ─── Section Headers ─── */
-.sh{text-align:center;margin-bottom:44px}
-.sh-label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px;display:block}
-.sh h2{font-family:var(--font-display);font-size:clamp(26px,3.5vw,42px);margin-bottom:10px}
-.sh p{font-size:15px;max-width:520px;margin:0 auto;line-height:1.7}
-.sh-white h2{color:var(--black)}
-.sh-white p{color:var(--gray-muted)}
-.sh-dark h2{color:var(--white)}
-.sh-dark p{color:var(--gray-text)}
-
-/* ─── Footer ─── */
-.ftr{background:var(--black-2);padding:56px 0 0;color:var(--gray-text);border-top:1px solid rgba(242,213,0,.06)}
-.ftr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.04)}
-.ftr-brand p{font-size:13px;line-height:1.7;margin-top:14px;max-width:260px}
-.ftr-col-t{font-weight:700;font-size:12px;color:var(--white);margin-bottom:16px;letter-spacing:.06em;text-transform:uppercase}
-.ftr-link{display:block;font-size:13px;color:var(--gray-muted);text-decoration:none;margin-bottom:10px;transition:color var(--tr)}
-.ftr-link:hover{color:var(--yellow)}
-.ftr-bot{padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.ftr-copy{font-size:11px;color:rgba(255,255,255,.3)}
-.ftr-soc{display:flex;gap:14px}
-.ftr-soc a{color:var(--gray-muted);transition:color var(--tr)}
-.ftr-soc a:hover{color:var(--yellow)}
-
-/* ─── WhatsApp Float ─── */
-.wa-float{position:fixed;bottom:24px;right:24px;z-index:900;background:var(--green-wa);color:var(--white);width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:all var(--tr);border:none;cursor:pointer}
-.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5)}
-.wa-float svg{width:26px;height:26px}
-
-/* ─── Mobile Sticky CTA ─── */
-.mob-sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:800;background:var(--black);border-top:1px solid rgba(242,213,0,.12);padding:10px 16px;gap:8px}
-.mob-sticky .btn-y{flex:1;justify-content:center;padding:14px;font-size:13px;border-radius:var(--radius-sm)}
-.mob-sticky .btn-tel{flex:0 0 auto;background:var(--graphite);color:var(--white);padding:14px 18px;border-radius:var(--radius-sm);text-decoration:none;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.08);transition:all var(--tr)}
-.mob-sticky .btn-tel:hover{border-color:rgba(255,255,255,.2)}
-
-/* ─── Responsive ─── */
-@media(max-width:1024px){
-  .trust-grid{grid-template-columns:repeat(2,1fr)}
-  .srv-grid{grid-template-columns:repeat(2,1fr)}
-  .steps-grid{grid-template-columns:repeat(2,1fr)}
-  .step-line{display:none}
-  .urg-layout,.reasons-layout,.contact-layout{grid-template-columns:1fr;gap:36px}
-  .test-grid{grid-template-columns:1fr}
-  .ftr-grid{grid-template-columns:1fr 1fr}
+/* ═══ HEADER ═══ */
+.hdr {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  transition: background .4s, box-shadow .4s, backdrop-filter .4s;
 }
-@media(max-width:768px){
-  .nav{display:none}
-  .mob-tog{display:block}
-  .hero h1{font-size:30px}
-  .hero-ct{padding:120px 0 100px}
-  .trust-grid{grid-template-columns:1fr 1fr}
-  .srv-grid{grid-template-columns:1fr}
-  .steps-grid{grid-template-columns:1fr}
-  .sec{padding:64px 0}
-  .hero-acts{flex-direction:column}
-  .btn-y,.btn-o{width:100%;justify-content:center}
-  .ftr-grid{grid-template-columns:1fr;gap:28px}
-  .ftr-bot{flex-direction:column;text-align:center}
-  .hist-year{font-size:56px}
-  .mob-sticky{display:flex}
-  .wa-float{bottom:76px}
-  .hero-bar{display:none}
-  .hero-bullets{flex-direction:column;gap:8px}
+.hdr.solid {
+  background: rgba(5,5,5,.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(242,213,0,.06);
 }
-`;
+.hdr-in {
+  max-width: 1100px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between; height: 64px;
+}
+.logo { display: flex; flex-direction: column; }
+.logo-t { font-family: var(--fd); font-size: 22px; color: var(--w); line-height: 1; }
+.logo-t em { font-style: italic; color: var(--y); }
+.logo-s { font-size: 9px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--gm); font-family: var(--fb); }
+.nav { display: flex; align-items: center; gap: 22px; }
+.nav a { color: var(--gt); font-size: 12px; font-weight: 500; transition: color var(--t); }
+.nav a:hover { color: var(--y); }
+.nav-cta {
+  background: var(--y) !important; color: var(--bk) !important;
+  padding: 8px 18px; border-radius: 99px; font-weight: 700 !important;
+  font-size: 10px !important; letter-spacing: .06em !important; text-transform: uppercase;
+  transition: all var(--t) !important;
+}
+.nav-cta:hover { background: var(--yh) !important; }
+.mob-tog { display: none; background: none; border: none; color: var(--w); cursor: pointer; }
+.mob-menu {
+  position: fixed; inset: 0; z-index: 99; background: var(--bk);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.mob-menu.open { opacity: 1; pointer-events: all; }
+.mob-menu a { color: var(--w); font-size: 17px; font-weight: 500; }
+.mob-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--w); cursor: pointer; }
 
-/* ── Main App ── */
-export default function KaviskiV2() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mob, setMob] = useState(false);
-  const [faqOpen, setFaqOpen] = useState(null);
-  const [sent, setSent] = useState(false);
+/* ═══ HERO ═══ */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  background: var(--bk); position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -30%; right: -15%; width: 70%; height: 160%;
+  background: radial-gradient(ellipse, rgba(242,213,0,.035), transparent 70%);
+  pointer-events: none;
+}
+.hero-ct { position: relative; z-index: 2; padding: 130px 0 110px; max-width: 660px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(242,213,0,.06); border: 1px solid rgba(242,213,0,.14);
+  border-radius: 99px; padding: 6px 16px; margin-bottom: 24px;
+  font-size: 10px; font-weight: 600; color: var(--y);
+  letter-spacing: .07em; text-transform: uppercase;
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--y);
+  animation: pulse-d 2s infinite;
+}
+@keyframes pulse-d { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+.hero h1 {
+  font-family: var(--fd); font-size: clamp(30px, 5vw, 54px);
+  font-weight: 400; line-height: 1.12; color: var(--w); margin-bottom: 18px;
+}
+.hero h1 .yl { color: var(--y); }
+.hero-p {
+  font-size: clamp(14px, 1.6vw, 16px); color: var(--gt);
+  max-width: 500px; margin-bottom: 22px; line-height: 1.75;
+}
+.hero-bullets { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 26px; }
+.hero-bul {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--w);
+}
+.hero-bul svg { color: var(--y); flex-shrink: 0; }
+.hero-acts { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.btn-y {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--y); color: var(--bk); padding: 14px 28px;
+  border-radius: 99px; font-weight: 700; font-size: 13px;
+  transition: all var(--t); border: none; cursor: pointer;
+}
+.btn-y:hover {
+  background: var(--yh); transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(242,213,0,.22);
+}
+.btn-o {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--w); padding: 14px 28px;
+  border-radius: 99px; font-weight: 600; font-size: 13px;
+  transition: all var(--t); border: 1px solid rgba(255,255,255,.12);
+}
+.btn-o:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.22); }
+.hero-micro { font-size: 11px; color: var(--gm); display: flex; align-items: center; gap: 5px; }
 
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 30);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
+/* ═══ TRUST ═══ */
+.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(242,213,0,.03); }
+.trust-card {
+  background: var(--bk2); padding: 30px 18px; text-align: center;
+  transition: all var(--t); border-bottom: 2px solid transparent;
+}
+.trust-card:hover { border-bottom-color: var(--y); background: var(--gr); }
+.trust-icon { color: var(--y); margin-bottom: 10px; }
+.trust-t { font-family: var(--fd); font-size: 18px; color: var(--w); margin-bottom: 4px; }
+.trust-d { font-size: 11px; color: var(--gm); }
 
-  const go = (id) => { setMob(false); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
+/* ═══ SECTION HEADERS ═══ */
+.sh { text-align: center; margin-bottom: 40px; }
+.sh-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--y); display: block; margin-bottom: 8px;
+}
+.sh-label-g { color: var(--yg); }
+.sh h2 { font-family: var(--fd); font-size: clamp(23px, 3.2vw, 36px); margin-bottom: 8px; }
+.sh p { font-size: 14px; max-width: 460px; margin: 0 auto; }
+.sh-w h2 { color: var(--bk); }
+.sh-w p { color: var(--gm); }
+.sh-d h2 { color: var(--w); }
+.sh-d p { color: var(--gt); }
 
-  return (
-    <>
-      <style>{css}</style>
+/* ═══ SERVICES ═══ */
+.srv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+.srv-card {
+  background: var(--gr); border: 1px solid rgba(255,255,255,.04);
+  border-radius: var(--r); padding: 26px 22px;
+  transition: all var(--t); position: relative; overflow: hidden;
+}
+.srv-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--y); transform: scaleX(0); transform-origin: left; transition: transform .4s;
+}
+.srv-card:hover {
+  background: var(--gr2); border-color: rgba(242,213,0,.08);
+  transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.3);
+}
+.srv-card:hover::after { transform: scaleX(1); }
+.srv-icon { color: var(--y); margin-bottom: 14px; }
+.srv-title { font-family: var(--fd); font-size: 18px; color: var(--w); line-height: 1.2; }
+.srv-sub { font-size: 11px; color: var(--yg); margin-bottom: 8px; font-weight: 500; }
+.srv-desc { font-size: 12px; color: var(--gt); margin-bottom: 12px; line-height: 1.65; }
+.srv-ben { display: flex; align-items: flex-start; gap: 6px; font-size: 11px; color: var(--gm); margin-bottom: 16px; }
+.srv-ben svg { color: var(--y); flex-shrink: 0; margin-top: 1px; }
+.srv-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--y); font-size: 12px; font-weight: 700; transition: all var(--t);
+}
+.srv-link:hover { color: var(--yh); gap: 8px; }
 
-      {/* ═══════ HEADER ═══════ */}
-      <header className={`hdr ${scrolled ? "solid" : ""}`}>
-        <div className="hdr-in">
-          <a href="#" className="logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-            <span className="logo-main">Kaviski<em>.</em></span>
-            <span className="logo-sub">Despachante desde 1971</span>
-          </a>
-          <nav className="nav">
-            <a href="#servicos" onClick={e => { e.preventDefault(); go("servicos"); }}>Serviços</a>
-            <a href="#como-funciona" onClick={e => { e.preventDefault(); go("como-funciona"); }}>Como Funciona</a>
-            <a href="#historia" onClick={e => { e.preventDefault(); go("historia"); }}>Sobre</a>
-            <a href="#faq" onClick={e => { e.preventDefault(); go("faq"); }}>Dúvidas</a>
-            <a href="#contato" onClick={e => { e.preventDefault(); go("contato"); }}>Contato</a>
-            <a href={WA} target="_blank" rel="noopener noreferrer" className="nav-cta">Resolver agora</a>
-          </nav>
-          <button className="mob-tog" onClick={() => setMob(true)} aria-label="Abrir menu">{I.menu}</button>
-        </div>
-      </header>
+/* ═══ STEPS ═══ */
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+.step { text-align: center; }
+.step-n { font-family: var(--fd); font-size: 42px; color: var(--y); opacity: .15; line-height: 1; margin-bottom: 8px; }
+.step-t { font-family: var(--fd); font-size: 16px; color: var(--bk); margin-bottom: 4px; }
+.step-d { font-size: 12px; color: var(--gm); line-height: 1.55; }
 
-      {/* Mobile Menu */}
-      <div className={`mob-menu ${mob ? "open" : ""}`}>
-        <button className="mob-close" onClick={() => setMob(false)} aria-label="Fechar">{I.x}</button>
-        {[["servicos","Serviços"],["como-funciona","Como Funciona"],["historia","Sobre"],["faq","Dúvidas"],["contato","Contato"]].map(([id,label]) => (
-          <a key={id} href={`#${id}`} onClick={e => { e.preventDefault(); go(id); }}>{label}</a>
-        ))}
-        <a href={WA} target="_blank" rel="noopener noreferrer" style={{ color: "var(--yellow)", fontWeight: 700 }}>Resolver agora</a>
+/* ═══ URGENCY ═══ */
+.urg { background: var(--bk2); border-top: 1px solid rgba(211,47,47,.08); border-bottom: 1px solid rgba(211,47,47,.08); }
+.urg-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+.urg-list { display: flex; flex-direction: column; gap: 12px; }
+.urg-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--gt); line-height: 1.6; }
+.urg-item svg { color: var(--rd); flex-shrink: 0; margin-top: 2px; }
+
+/* ═══ REASONS ═══ */
+.reasons-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+.reasons-list { display: flex; flex-direction: column; gap: 9px; }
+.reason-item {
+  display: flex; align-items: center; gap: 11px;
+  font-size: 13px; color: var(--bk); font-weight: 500;
+  padding: 12px 16px; border-radius: var(--rs);
+  background: var(--w); border: 1px solid var(--gl); transition: all var(--t);
+}
+.reason-item:hover { border-color: var(--y); }
+.reason-item svg { color: var(--yg); flex-shrink: 0; }
+
+/* ═══ HISTORY ═══ */
+.hist-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: flex-start; }
+.hist-year { font-family: var(--fd); font-size: 72px; color: rgba(242,213,0,.06); line-height: 1; margin-bottom: -18px; }
+.hist-txt { font-size: 14px; color: var(--gt); line-height: 1.8; }
+.hist-txt p { margin-bottom: 12px; }
+.hist-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(242,213,0,.05); border: 1px solid rgba(242,213,0,.1);
+  border-radius: var(--rs); padding: 12px 18px; margin-top: 12px;
+  color: var(--y); font-weight: 600; font-size: 13px;
+}
+.hist-stats { display: flex; flex-direction: column; gap: 16px; }
+.hist-stat {
+  background: var(--gr); border: 1px solid rgba(255,255,255,.04);
+  border-radius: var(--rs); padding: 20px;
+}
+.hist-stat-n { font-family: var(--fd); font-size: 28px; color: var(--y); }
+.hist-stat-l { font-size: 11px; color: var(--gm); font-weight: 500; }
+
+/* ═══ TESTIMONIALS ═══ */
+.test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+.test-card {
+  background: var(--w); border: 1px solid var(--gl);
+  border-radius: var(--r); padding: 24px 20px; transition: all var(--t);
+}
+.test-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.05); border-color: var(--y); }
+.test-stars { display: flex; gap: 2px; margin-bottom: 12px; }
+.test-txt { font-size: 13px; color: var(--gr2); line-height: 1.7; font-style: italic; margin-bottom: 14px; }
+.test-author { font-weight: 700; font-size: 12px; color: var(--bk); }
+.test-role { font-size: 10px; color: var(--gm); }
+
+/* ═══ FAQ ═══ */
+.faq-list { max-width: 700px; margin: 40px auto 0; }
+.faq-item { border-bottom: 1px solid rgba(255,255,255,.06); }
+.faq-q {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 0; background: none; border: none; cursor: pointer;
+  font-size: 14px; font-weight: 600; color: var(--w); text-align: left;
+  font-family: var(--fb); transition: color var(--t);
+}
+.faq-q:hover { color: var(--y); }
+.faq-chev { transition: transform .3s; flex-shrink: 0; margin-left: 12px; color: var(--y); }
+.faq-chev.open { transform: rotate(180deg); }
+.faq-a {
+  overflow: hidden; max-height: 0;
+  transition: max-height .4s ease, padding .4s;
+}
+.faq-a.open { max-height: 240px; padding-bottom: 20px; }
+.faq-a p { font-size: 13px; color: var(--gt); line-height: 1.7; }
+
+/* ═══ CTA FINAL ═══ */
+.cta-final {
+  text-align: center; padding: 84px 0;
+  background: linear-gradient(135deg, var(--gr), var(--bk2));
+  position: relative; overflow: hidden;
+}
+.cta-final::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle, rgba(242,213,0,.025), transparent 70%);
+  pointer-events: none;
+}
+.cta-final h2 { font-family: var(--fd); font-size: clamp(24px, 3.5vw, 40px); color: var(--w); margin-bottom: 12px; }
+.cta-final p { font-size: 15px; color: var(--gt); margin-bottom: 30px; max-width: 440px; margin-left: auto; margin-right: auto; }
+
+/* ═══ CONTACT ═══ */
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
+.contact-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; transition: color var(--t); }
+a.contact-item:hover { color: var(--yg); }
+.contact-hours {
+  margin-top: 18px; padding: 16px 18px; background: var(--w);
+  border: 1px solid var(--gl); border-radius: var(--rs);
+  font-size: 12px; color: var(--gm); line-height: 1.6;
+}
+.contact-hours strong { color: var(--bk); display: block; margin-bottom: 2px; }
+.form-box {
+  background: var(--w); border: 1px solid var(--gl);
+  border-radius: var(--r); padding: 28px 24px; box-shadow: 0 4px 20px rgba(0,0,0,.04);
+}
+.fg { margin-bottom: 16px; }
+.fl { display: block; font-size: 10px; font-weight: 600; color: var(--bk); margin-bottom: 4px; letter-spacing: .04em; text-transform: uppercase; }
+.fi {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--gl);
+  border-radius: var(--rs); font-size: 13px; font-family: var(--fb);
+  background: var(--ow); transition: all var(--t); color: var(--bk);
+}
+.fi:focus { outline: none; border-color: var(--y); box-shadow: 0 0 0 3px rgba(242,213,0,.1); background: var(--w); }
+.fi::placeholder { color: var(--gm); }
+textarea.fi { resize: vertical; min-height: 86px; }
+.btn-form {
+  width: 100%; padding: 14px; background: var(--y); color: var(--bk);
+  border: none; border-radius: var(--rs); font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all var(--t); font-family: var(--fb);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.btn-form:hover { background: var(--yh); }
+
+/* ═══ FOOTER ═══ */
+.ftr { background: var(--bk2); padding: 44px 0 0; color: var(--gt); border-top: 1px solid rgba(242,213,0,.04); }
+.ftr-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,.03); }
+.ftr-brand p { font-size: 12px; line-height: 1.7; margin-top: 10px; max-width: 230px; }
+.ftr-col-t { font-weight: 700; font-size: 10px; color: var(--w); margin-bottom: 14px; letter-spacing: .06em; text-transform: uppercase; }
+.ftr-link { display: block; font-size: 12px; color: var(--gm); margin-bottom: 8px; transition: color var(--t); }
+.ftr-link:hover { color: var(--y); }
+.ftr-bot { padding: 18px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.ftr-copy { font-size: 10px; color: rgba(255,255,255,.22); }
+.ftr-soc { display: flex; gap: 12px; }
+.ftr-soc a { color: var(--gm); transition: color var(--t); }
+.ftr-soc a:hover { color: var(--y); }
+
+/* ═══ WA FLOAT ═══ */
+.wa-float {
+  position: fixed; bottom: 20px; right: 20px; z-index: 90;
+  background: var(--gw); color: var(--w); width: 54px; height: 54px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 18px rgba(37,211,102,.35); transition: all var(--t);
+}
+.wa-float:hover { transform: scale(1.08); }
+
+/* ═══ MOBILE STICKY ═══ */
+.mob-sticky {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 80;
+  background: var(--bk); border-top: 1px solid rgba(242,213,0,.1);
+  padding: 8px 12px; gap: 8px;
+}
+.mob-sticky .btn-y { flex: 1; justify-content: center; padding: 12px; font-size: 12px; border-radius: var(--rs); }
+.mob-sticky .btn-tel {
+  flex: 0 0 auto; background: var(--gr); color: var(--w);
+  padding: 12px 16px; border-radius: var(--rs); display: flex;
+  align-items: center; gap: 5px; font-size: 12px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+/* ═══ ANIMATIONS ═══ */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1024px) {
+  .trust-grid, .srv-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .urg-layout, .reasons-layout, .hist-layout, .contact-layout { grid-template-columns: 1fr; gap: 30px; }
+  .test-grid { grid-template-columns: 1fr; }
+  .ftr-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .mob-tog { display: block; }
+  .hero h1 { font-size: 27px; }
+  .hero-ct { padding: 110px 0 90px; }
+  .trust-grid { grid-template-columns: 1fr 1fr; }
+  .srv-grid, .steps-grid { grid-template-columns: 1fr; }
+  .sec { padding: 56px 0; }
+  .hero-acts { flex-direction: column; }
+  .btn-y, .btn-o { width: 100%; justify-content: center; }
+  .ftr-grid { grid-template-columns: 1fr; gap: 22px; }
+  .ftr-bot { flex-direction: column; text-align: center; }
+  .hist-year { font-size: 48px; }
+  .mob-sticky { display: flex; }
+  .wa-float { bottom: 68px; }
+  .hero-bullets { flex-direction: column; gap: 6px; }
+  .cta-final .cta-btns { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="hdr" id="header">
+  <div class="hdr-in">
+    <a href="#" class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      <span class="logo-t">Kaviski<em>.</em></span>
+      <span class="logo-s">Despachante desde 1971</span>
+    </a>
+    <nav class="nav">
+      <a href="#servicos">Serviços</a>
+      <a href="#funciona">Como Funciona</a>
+      <a href="#historia">Sobre</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="#contato">Contato</a>
+      <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="nav-cta">Resolver agora</a>
+    </nav>
+    <button class="mob-tog" onclick="document.getElementById('mobmenu').classList.add('open')" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobmenu">
+  <button class="mob-close" onclick="document.getElementById('mobmenu').classList.remove('open')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#servicos" onclick="document.getElementById('mobmenu').classList.remove('open')">Serviços</a>
+  <a href="#funciona" onclick="document.getElementById('mobmenu').classList.remove('open')">Como Funciona</a>
+  <a href="#historia" onclick="document.getElementById('mobmenu').classList.remove('open')">Sobre</a>
+  <a href="#faq" onclick="document.getElementById('mobmenu').classList.remove('open')">Dúvidas</a>
+  <a href="#contato" onclick="document.getElementById('mobmenu').classList.remove('open')">Contato</a>
+  <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" style="color:var(--y);font-weight:700">Resolver agora →</a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="hero">
+  <div class="ctn hero-ct">
+    <div class="reveal">
+      <div class="badge"><span class="badge-dot"></span> Despachante Oficial DETRAN-PR • Curitiba</div>
+    </div>
+    <div class="reveal" style="transition-delay:.1s">
+      <h1>Despachante em Curitiba para <span class="yl">resolver sua documentação</span> sem burocracia</h1>
+    </div>
+    <div class="reveal" style="transition-delay:.2s">
+      <p class="hero-p">Transferência, licenciamento, emplacamento e toda regularização veicular com segurança por quem atua em Curitiba há mais de 50 anos.</p>
+    </div>
+    <div class="reveal" style="transition-delay:.28s">
+      <div class="hero-bullets">
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Atendimento rápido no WhatsApp</span>
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Tradição desde 1971</span>
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Processo seguro</span>
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Centro de Curitiba</span>
       </div>
-
-      {/* ═══════ HERO ═══════ */}
-      <section className="hero" id="hero">
-        <div className="hero-grain" />
-        <div className="hero-line" />
-        <div className="ctn hero-ct">
-          <Reveal delay={0.05}>
-            <div className="hero-badge"><span className="hero-dot" />Despachante Oficial do DETRAN-PR • Curitiba</div>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <h1>
-              Despachante em Curitiba<br/>
-              para <span className="yl">resolver sua<br/>documentação</span> sem burocracia
-            </h1>
-          </Reveal>
-          <Reveal delay={0.25}>
-            <p className="hero-sub">
-              Transferência, licenciamento, emplacamento e toda regularização veicular conduzida com segurança por quem atua em Curitiba há mais de 50 anos.
-            </p>
-          </Reveal>
-          <Reveal delay={0.32}>
-            <div className="hero-bullets">
-              {["Atendimento rápido no WhatsApp","Tradição desde 1971","Processo seguro e orientado","Centro de Curitiba"].map((b,i) => (
-                <span className="hero-bullet" key={i}>{I.check} {b}</span>
-              ))}
-            </div>
-          </Reveal>
-          <Reveal delay={0.4}>
-            <div className="hero-acts">
-              <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-y">{I.wa} Resolver no WhatsApp agora</a>
-              <a href="tel:+554132228060" className="btn-o">{I.phone} Ligar: {TEL1}</a>
-            </div>
-            <div className="hero-micro">{I.clock} Resposta rápida em horário comercial · Atendimento direto com a equipe</div>
-          </Reveal>
-        </div>
-        <div className="hero-bar">
-          <div className="hero-bar-in">
-            <a href="tel:+554132228060">{I.phone} {TEL1}</a>
-            <a href="tel:+554130278060">{I.phone} {TEL2}</a>
-            <a href={`mailto:${EMAIL}`}>{I.mail} {EMAIL}</a>
-            <span>{I.pin} Centro, Curitiba/PR</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ TRUST STRIP ═══════ */}
-      <section style={{ background: "var(--black-2)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div className="trust-grid">
-            {[
-              { icon: I.award, t: "Desde 1971", d: "Mais de 50 anos de atuação contínua" },
-              { icon: I.pin, t: "Centro de Curitiba", d: "Alameda Cabral, 36 — fácil acesso" },
-              { icon: I.users, t: "Equipe Especializada", d: "21 profissionais dedicados" },
-              { icon: I.shield, t: "Segurança Documental", d: "Processo seguro e dentro da lei" },
-            ].map((c, i) => (
-              <Reveal key={i} delay={i * 0.08}>
-                <div className="trust-card">
-                  <div className="trust-icon">{c.icon}</div>
-                  <div className="trust-t">{c.t}</div>
-                  <div className="trust-d">{c.d}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ SERVIÇOS ═══════ */}
-      <section className="sec sec-black" id="servicos">
-        <div className="ctn">
-          <Reveal>
-            <div className="sh sh-dark">
-              <span className="sh-label">Nossos Serviços</span>
-              <h2>Documentação veicular resolvida de verdade</h2>
-              <p>Do primeiro emplacamento à regularização complexa — cada processo conduzido com experiência e segurança.</p>
-            </div>
-          </Reveal>
-          <div className="srv-grid">
-            {services.map((s, i) => (
-              <Reveal key={i} delay={i * 0.06}>
-                <div className="srv-card">
-                  <div className="srv-icon">{s.icon}</div>
-                  <div className="srv-title">{s.title}</div>
-                  <div className="srv-sub">{s.sub}</div>
-                  <div className="srv-desc">{s.desc}</div>
-                  <div className="srv-benefit">{I.check} <span>{s.benefit}</span></div>
-                  <a href={WA} target="_blank" rel="noopener noreferrer" className="srv-link">Solicitar orientação {I.arrow}</a>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ COMO FUNCIONA ═══════ */}
-      <section className="sec sec-white" id="como-funciona">
-        <div className="ctn">
-          <Reveal>
-            <div className="sh sh-white">
-              <span className="sh-label" style={{ color: "var(--yellow-gold)" }}>Processo simples</span>
-              <h2>Como funciona o atendimento</h2>
-              <p>Você não precisa enfrentar a burocracia sozinho. Nossa equipe orienta cada etapa com clareza.</p>
-            </div>
-          </Reveal>
-          <div className="steps-grid">
-            {steps.map((s, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="step">
-                  <div className="step-n">{s.n}</div>
-                  <div className="step-t">{s.t}</div>
-                  <div className="step-d">{s.d}</div>
-                  {i < 3 && <div className="step-line" />}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={0.4}>
-            <div style={{ textAlign: "center", marginTop: 44 }}>
-              <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-y" style={{ background: "var(--black)", color: "var(--yellow)" }}>
-                {I.wa} Iniciar meu atendimento agora
-              </a>
-              <div style={{ fontSize: 12, color: "var(--gray-muted)", marginTop: 8 }}>Sem complicação e sem enrolação</div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ═══════ URGÊNCIA ═══════ */}
-      <section className="sec urg" id="urgencia">
-        <div className="ctn">
-          <div className="urg-layout">
-            <Reveal>
-              <div>
-                <div className="urg-icon">{I.alert}</div>
-                <span className="sh-label" style={{ color: "var(--red-alert)", letterSpacing: ".14em", fontSize: 11, fontWeight: 700 }}>Atenção</span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(26px,3.5vw,38px)", color: "var(--white)", margin: "10px 0 14px" }}>
-                  Adiar a regularização do seu veículo pode sair caro
-                </h2>
-                <p style={{ fontSize: 15, color: "var(--gray-text)", lineHeight: 1.75, marginBottom: 28 }}>
-                  Pendências documentais não se resolvem sozinhas — e quanto mais tempo passa, mais complicado e custoso fica. Veja os riscos mais comuns:
-                </p>
-                <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-y">
-                  {I.wa} Quero regularizar agora
-                </a>
-                <div style={{ fontSize: 12, color: "var(--gray-muted)", marginTop: 8 }}>Equipe preparada para orientar seu caso</div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <div className="urg-list">
-                {[
-                  "Multas por documentação vencida ou irregular que acumulam e podem dobrar de valor",
-                  "Bloqueio do veículo pelo DETRAN, impedindo circulação legal",
-                  "Dificuldade na hora de vender ou transferir o veículo",
-                  "Apreensão do veículo em blitz e fiscalizações",
-                  "Complicações judiciais em caso de acidente com documentação irregular",
-                  "Perda de prazos legais que geram custos adicionais desnecessários",
-                ].map((r, i) => (
-                  <div className="urg-item" key={i}>{I.alert} <span>{r}</span></div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ POR QUE ESCOLHER ═══════ */}
-      <section className="sec sec-white" id="por-que">
-        <div className="ctn">
-          <div className="reasons-layout">
-            <Reveal>
-              <div>
-                <span className="sh-label" style={{ color: "var(--yellow-gold)" }}>Diferenciais</span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(26px,3.5vw,38px)", color: "var(--black)", marginTop: 10, marginBottom: 14 }}>
-                  O que diferencia a Kaviski de um despachante comum
-                </h2>
-                <p style={{ fontSize: 15, color: "var(--gray-muted)", lineHeight: 1.75, marginBottom: 28 }}>
-                  Mais de cinco décadas de atuação não são apenas tempo de mercado. São consistência, reputação e confiança construída com gerações de clientes em Curitiba.
-                </p>
-                <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-y" style={{ background: "var(--black)", color: "var(--yellow)" }}>
-                  {I.wa} Falar com um especialista
-                </a>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="reasons-list">
-                {[
-                  "Tradição real desde 1971 — mais de 50 anos",
-                  "Equipe com 21 profissionais especializados",
-                  "Parcerias em diversos estados do Brasil",
-                  "Atendimento a multinacionais e empresas nacionais",
-                  "Reconhecimento por sindicatos em todo o país",
-                  "Localização central em Curitiba — fácil acesso",
-                  "Acompanhamento transparente do início ao fim",
-                  "Processo conduzido com segurança e dentro da lei",
-                ].map((r, i) => (
-                  <div className="reason" key={i}>{I.check} {r}</div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ HISTÓRIA ═══════ */}
-      <section className="sec sec-black" id="historia">
-        <div className="ctn">
-          <div className="reasons-layout" style={{ alignItems: "flex-start" }}>
-            <Reveal>
-              <div className="hist-ct">
-                <span className="sh-label">Nossa História</span>
-                <div className="hist-year">1971</div>
-                <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(26px,3.5vw,36px)", color: "var(--white)", marginBottom: 20 }}>
-                  Tradição que atravessa gerações em Curitiba
-                </h2>
-                <div className="hist-txt">
-                  <p>Em 1971, com o aval do Governo do Estado do Paraná, João Antonio Kaviski fundou o Despachante Kaviski no coração de Curitiba. O compromisso, desde o primeiro dia, foi claro: oferecer um serviço eficaz, seguro e centrado no cliente.</p>
-                  <p>Ao longo de mais de cinco décadas, a empresa cresceu de forma sólida. Hoje, são 21 profissionais especializados, reconhecimento por sindicatos de todo o Brasil e parcerias com multinacionais, empresas nacionais e estaduais.</p>
-                  <p>A tradição familiar se mantém viva, agora integrada às tecnologias modernas de atendimento — sem jamais perder a essência do serviço humano que nos diferencia há gerações.</p>
-                </div>
-                <div className="hist-badge">{I.award} Mais de 50 anos de atuação contínua</div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <div className="hist-stats">
-                {[
-                  { n: "1971", l: "Ano de fundação" },
-                  { n: "21", l: "Profissionais na equipe" },
-                  { n: "50+", l: "Anos de mercado" },
-                  { n: "Centro", l: "Curitiba, PR" },
-                ].map((s, i) => (
-                  <div className="hist-stat" key={i}>
-                    <div className="hist-stat-n">{s.n}</div>
-                    <div className="hist-stat-l">{s.l}</div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ PROVA SOCIAL ═══════ */}
-      <section className="sec sec-white" id="depoimentos">
-        <div className="ctn">
-          <Reveal>
-            <div className="sh sh-white">
-              <span className="sh-label" style={{ color: "var(--yellow-gold)" }}>Avaliações</span>
-              <h2>A confiança de quem já resolveu com a Kaviski</h2>
-              <p>Atendimento, agilidade e segurança reconhecidos por nossos clientes.</p>
-            </div>
-          </Reveal>
-          <div className="test-grid">
-            {/* These cards are ready for real Google reviews — replace content when available */}
-            {[
-              { txt: "Atendimento excelente e muito ágil. Fizeram a transferência do meu veículo em poucos dias, sem nenhuma complicação. Recomendo demais.", author: "Cliente em Curitiba", role: "Transferência de Veículo" },
-              { txt: "Empresa séria e de confiança. Já utilizo os serviços há anos para a frota da empresa. Profissionalismo impecável em cada processo.", author: "Cliente Corporativo", role: "Gestão de Frota" },
-              { txt: "Precisei de uma segunda via com urgência e resolveram rapidamente. Atendimento muito humano e prestativo. Nota 10.", author: "Cliente em Curitiba", role: "2ª Via de Documento" },
-            ].map((t, i) => (
-              <Reveal key={i} delay={i * 0.08}>
-                <div className="test-card">
-                  <div className="test-stars">{[...Array(5)].map((_, j) => <span key={j}>{I.star}</span>)}</div>
-                  <div className="test-txt">"{t.txt}"</div>
-                  <div className="test-author">{t.author}</div>
-                  <div className="test-role">{t.role}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ FAQ ═══════ */}
-      <section className="sec sec-black" id="faq">
-        <div className="ctn">
-          <Reveal>
-            <div className="sh sh-dark">
-              <span className="sh-label">Dúvidas Frequentes</span>
-              <h2>Respostas claras para suas principais dúvidas</h2>
-              <p>Tudo o que você precisa saber antes de iniciar seu atendimento com a Kaviski.</p>
-            </div>
-          </Reveal>
-          <div className="faq-list">
-            {faqs.map((f, i) => (
-              <Reveal key={i} delay={i * 0.04}>
-                <div className="faq-item">
-                  <button className="faq-q" onClick={() => setFaqOpen(faqOpen === i ? null : i)}>
-                    {f.q}
-                    <span className={`faq-chev ${faqOpen === i ? "open" : ""}`}>{I.chevDown}</span>
-                  </button>
-                  <div className={`faq-a ${faqOpen === i ? "open" : ""}`}><p>{f.a}</p></div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ CTA FINAL ═══════ */}
-      <section className="cta-f">
-        <div className="ctn" style={{ position: "relative", zIndex: 1 }}>
-          <Reveal>
-            <span className="sh-label" style={{ color: "var(--yellow)", opacity: .7 }}>Pronto para resolver?</span>
-            <h2>Sua documentação resolvida<br/>com quem entende do assunto</h2>
-            <p>Fale agora com a Kaviski e tenha a tranquilidade de um atendimento profissional, ágil e seguro em Curitiba.</p>
-            <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-y">{I.wa} Resolver no WhatsApp</a>
-              <a href="tel:+554132228060" className="btn-o">{I.phone} Ligar: {TEL1}</a>
-            </div>
-            <div style={{ fontSize: 12, color: "var(--gray-muted)", marginTop: 10 }}>Fale direto com a Kaviski · Orientação clara do início ao fim</div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ═══════ CONTATO ═══════ */}
-      <section className="sec sec-white" id="contato">
-        <div className="ctn">
-          <div className="contact-layout">
-            <Reveal>
-              <div>
-                <span className="sh-label" style={{ color: "var(--yellow-gold)" }}>Contato</span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(26px,3.5vw,36px)", color: "var(--black)", marginTop: 10, marginBottom: 8 }}>
-                  Fale com a nossa equipe em Curitiba
-                </h2>
-                <p style={{ fontSize: 15, color: "var(--gray-muted)", lineHeight: 1.7, marginBottom: 8 }}>
-                  Estamos prontos para orientar você. Escolha o canal que preferir.
-                </p>
-                <div className="contact-info">
-                  <a href="tel:+554132228060" className="contact-item">{I.phone} <strong>{TEL1}</strong></a>
-                  <a href="tel:+554130278060" className="contact-item">{I.phone} <strong>{TEL2}</strong></a>
-                  <a href={`mailto:${EMAIL}`} className="contact-item">{I.mail} {EMAIL}</a>
-                  <span className="contact-item">{I.pin} {ADDR}</span>
-                  <span className="contact-item">{I.lock} CNPJ: 37.759.920/0001-06</span>
-                </div>
-                <div style={{ marginTop: 20, display: "flex", gap: 14 }}>
-                  <a href="https://www.facebook.com/kaviskidespachante" target="_blank" rel="noopener noreferrer" style={{ color: "var(--gray-dark)" }}>{I.fb}</a>
-                  <a href="https://www.instagram.com/despachantekaviski/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--gray-dark)" }}>{I.ig}</a>
-                </div>
-                <div className="contact-hours">
-                  <strong>Horário de funcionamento</strong>
-                  Segunda a sexta: 9h às 18h<br/>Sábado: 9h às 12h
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="form-box">
-                {sent ? (
-                  <div style={{ textAlign: "center", padding: "36px 0" }}>
-                    <div style={{ color: "var(--yellow-gold)", marginBottom: 14, display: "flex", justifyContent: "center" }}>
-                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    </div>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--black)", marginBottom: 6 }}>Solicitação enviada!</h3>
-                    <p style={{ fontSize: 14, color: "var(--gray-muted)", marginBottom: 16 }}>Entraremos em contato em breve. Obrigado pela confiança.</p>
-                    <a href={WA} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: "var(--yellow-gold)", fontWeight: 600, textDecoration: "none" }}>
-                      Ou fale agora pelo WhatsApp →
-                    </a>
-                  </div>
-                ) : (
-                  <>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--black)", marginBottom: 4 }}>Solicite orientação da nossa equipe</h3>
-                    <p style={{ fontSize: 13, color: "var(--gray-muted)", marginBottom: 22 }}>Preencha seus dados e retornaremos com a melhor forma de ajudar no seu processo.</p>
-                    <div className="fg">
-                      <label className="fl">Nome completo</label>
-                      <input type="text" className="fi" placeholder="Seu nome completo" />
-                    </div>
-                    <div className="fg">
-                      <label className="fl">Telefone / WhatsApp</label>
-                      <input type="tel" className="fi" placeholder="(41) 9 0000-0000" />
-                    </div>
-                    <div className="fg">
-                      <label className="fl">E-mail</label>
-                      <input type="email" className="fi" placeholder="seu@email.com" />
-                    </div>
-                    <div className="fg">
-                      <label className="fl">Qual serviço precisa?</label>
-                      <select className="fi" defaultValue="">
-                        <option value="" disabled>Selecione o serviço</option>
-                        <option>Transferência de Veículo</option>
-                        <option>Primeiro Emplacamento (0km)</option>
-                        <option>Licenciamento Anual</option>
-                        <option>2ª Via de Documentos</option>
-                        <option>Regularização Documental</option>
-                        <option>Consultoria / Outro</option>
-                      </select>
-                    </div>
-                    <div className="fg">
-                      <label className="fl">Mensagem (opcional)</label>
-                      <textarea className="fi" placeholder="Descreva brevemente o que precisa resolver..." />
-                    </div>
-                    <button className="btn-form" onClick={() => setSent(true)}>Quero atendimento {I.send}</button>
-                    <p style={{ fontSize: 11, color: "var(--gray-muted)", marginTop: 10, textAlign: "center", lineHeight: 1.5 }}>
-                      Seus dados estão protegidos e serão usados apenas para contato. Se preferir, fale agora pelo <a href={WA} target="_blank" rel="noopener noreferrer" style={{ color: "var(--yellow-gold)", textDecoration: "none", fontWeight: 600 }}>WhatsApp</a>.
-                    </p>
-                  </>
-                )}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ FOOTER ═══════ */}
-      <footer className="ftr">
-        <div className="ctn">
-          <div className="ftr-grid">
-            <div className="ftr-brand">
-              <a href="#" className="logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ textDecoration: "none" }}>
-                <span className="logo-main" style={{ fontSize: 22 }}>Kaviski<em>.</em></span>
-                <span className="logo-sub">Despachante desde 1971</span>
-              </a>
-              <p>Referência em documentação veicular em Curitiba há mais de 50 anos. Atendimento especializado, seguro e ágil para pessoas físicas e empresas.</p>
-            </div>
-            <div>
-              <div className="ftr-col-t">Serviços</div>
-              {["Transferência de Veículo","Primeiro Emplacamento","Licenciamento Anual","2ª Via de Documentos","Regularização Documental","Consultoria"].map((s, i) => (
-                <a key={i} href="#servicos" className="ftr-link" onClick={e => { e.preventDefault(); go("servicos"); }}>{s}</a>
-              ))}
-            </div>
-            <div>
-              <div className="ftr-col-t">Institucional</div>
-              {[["historia","Sobre nós"],["como-funciona","Como funciona"],["faq","Dúvidas frequentes"],["contato","Contato"]].map(([id,l], i) => (
-                <a key={i} href={`#${id}`} className="ftr-link" onClick={e => { e.preventDefault(); go(id); }}>{l}</a>
-              ))}
-              <a href="#" className="ftr-link">Política de Privacidade</a>
-            </div>
-            <div>
-              <div className="ftr-col-t">Contato</div>
-              <a href="tel:+554132228060" className="ftr-link">{TEL1}</a>
-              <a href="tel:+554130278060" className="ftr-link">{TEL2}</a>
-              <a href={`mailto:${EMAIL}`} className="ftr-link">{EMAIL}</a>
-              <span className="ftr-link" style={{ cursor: "default" }}>{ADDR}</span>
-              <span className="ftr-link" style={{ cursor: "default" }}>CEP: {CEP}</span>
-              <span className="ftr-link" style={{ cursor: "default" }}>Curitiba — Paraná — Brasil</span>
-            </div>
-          </div>
-          <div className="ftr-bot">
-            <div className="ftr-copy">© {new Date().getFullYear()} Kaviski & Kaviski Despachante de Veículos LTDA — CNPJ: 37.759.920/0001-06 — Todos os direitos reservados.</div>
-            <div className="ftr-soc">
-              <a href="https://www.facebook.com/kaviskidespachante" target="_blank" rel="noopener noreferrer" aria-label="Facebook">{I.fb}</a>
-              <a href="https://www.instagram.com/despachantekaviski/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">{I.ig}</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* ═══════ WA FLOAT ═══════ */}
-      <a href={WA} target="_blank" rel="noopener noreferrer" className="wa-float" aria-label="WhatsApp">{I.wa}</a>
-
-      {/* ═══════ MOBILE STICKY CTA ═══════ */}
-      <div className="mob-sticky">
-        <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-y">{I.wa} Resolver agora</a>
-        <a href="tel:+554132228060" className="btn-tel">{I.phone} Ligar</a>
+    </div>
+    <div class="reveal" style="transition-delay:.36s">
+      <div class="hero-acts">
+        <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Resolver no WhatsApp agora
+        </a>
+        <a href="tel:+554132228060" class="btn-o">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Ligar: (41) 3222-8060
+        </a>
       </div>
-    </>
-  );
+      <div class="hero-micro">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        Resposta rápida em horário comercial · Atendimento direto com a equipe
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TRUST STRIP ═══════════════════ -->
+<div style="max-width:1100px;margin:0 auto">
+  <div class="trust-grid">
+    <div class="trust-card reveal"><div class="trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div><div class="trust-t">Desde 1971</div><div class="trust-d">50+ anos de atuação contínua</div></div>
+    <div class="trust-card reveal"><div class="trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="trust-t">Centro de Curitiba</div><div class="trust-d">Alameda Cabral, 36</div></div>
+    <div class="trust-card reveal"><div class="trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div class="trust-t">Equipe Especializada</div><div class="trust-d">21 profissionais dedicados</div></div>
+    <div class="trust-card reveal"><div class="trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="trust-t">Segurança Documental</div><div class="trust-d">Processo dentro da lei</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SERVIÇOS ═══════════════════ -->
+<section class="sec sec-b" id="servicos">
+  <div class="ctn">
+    <div class="sh sh-d reveal">
+      <span class="sh-label">Nossos Serviços</span>
+      <h2>Documentação veicular resolvida de verdade</h2>
+      <p>Do emplacamento à regularização complexa — cada processo com experiência e segurança.</p>
+    </div>
+    <div class="srv-grid" id="srv-grid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COMO FUNCIONA ═══════════════════ -->
+<section class="sec sec-w" id="funciona">
+  <div class="ctn">
+    <div class="sh sh-w reveal">
+      <span class="sh-label sh-label-g">Processo simples</span>
+      <h2>Como funciona o atendimento</h2>
+      <p>Você não enfrenta a burocracia sozinho. Orientamos cada etapa com clareza.</p>
+    </div>
+    <div class="steps-grid" id="steps-grid"></div>
+    <div style="text-align:center;margin-top:32px" class="reveal">
+      <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y" style="background:var(--bk);color:var(--y)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Iniciar meu atendimento
+      </a>
+      <div style="font-size:11px;color:var(--gm);margin-top:6px">Sem complicação e sem enrolação</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ URGÊNCIA ═══════════════════ -->
+<section class="sec urg" id="urgencia">
+  <div class="ctn">
+    <div class="urg-layout">
+      <div class="reveal">
+        <div style="color:var(--rd);margin-bottom:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rd)">Atenção</span>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin:8px 0 12px">Adiar a regularização do veículo pode sair caro</h2>
+        <p style="font-size:14px;color:var(--gt);line-height:1.75;margin-bottom:22px">Pendências documentais não se resolvem sozinhas. Quanto mais tempo passa, mais complicado e custoso fica:</p>
+        <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20regularizar%20meu%20ve%C3%ADculo." target="_blank" rel="noopener" class="btn-y">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Quero regularizar agora
+        </a>
+        <div style="font-size:11px;color:var(--gm);margin-top:6px">Equipe preparada para orientar seu caso</div>
+      </div>
+      <div class="reveal">
+        <div class="urg-list" id="urg-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ DIFERENCIAIS ═══════════════════ -->
+<section class="sec sec-w" id="por-que">
+  <div class="ctn">
+    <div class="reasons-layout">
+      <div class="reveal">
+        <span class="sh-label sh-label-g">Diferenciais</span>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-top:8px;margin-bottom:12px">O que diferencia a Kaviski de um despachante comum</h2>
+        <p style="font-size:14px;color:var(--gm);line-height:1.75;margin-bottom:22px">Mais de cinco décadas não são apenas tempo. São consistência, reputação e confiança construída com gerações de clientes.</p>
+        <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y" style="background:var(--bk);color:var(--y)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar com especialista
+        </a>
+      </div>
+      <div class="reveal">
+        <div class="reasons-list" id="reasons-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ HISTÓRIA ═══════════════════ -->
+<section class="sec sec-b" id="historia">
+  <div class="ctn">
+    <div class="hist-layout">
+      <div class="reveal">
+        <span class="sh-label">Nossa História</span>
+        <div class="hist-year">1971</div>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin-bottom:16px">Tradição que atravessa gerações em Curitiba</h2>
+        <div class="hist-txt">
+          <p>Em 1971, João Antonio Kaviski fundou o Despachante Kaviski no coração de Curitiba. O compromisso desde o primeiro dia: serviço eficaz, seguro e centrado no cliente.</p>
+          <p>Cinco décadas depois: 21 profissionais especializados, reconhecimento por sindicatos de todo o Brasil e parcerias com multinacionais e empresas de diversos estados.</p>
+          <p>A tradição familiar se mantém viva, integrada às tecnologias modernas — sem jamais perder a essência do serviço humano que nos diferencia há gerações.</p>
+        </div>
+        <div class="hist-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          Mais de 50 anos de atuação contínua
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="hist-stats" id="hist-stats"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROVA SOCIAL ═══════════════════ -->
+<section class="sec sec-w" id="depoimentos">
+  <div class="ctn">
+    <div class="sh sh-w reveal">
+      <span class="sh-label sh-label-g">Avaliações</span>
+      <h2>A confiança de quem já resolveu com a Kaviski</h2>
+      <p>Atendimento, agilidade e segurança reconhecidos por nossos clientes.</p>
+    </div>
+    <div class="test-grid" id="test-grid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FAQ ═══════════════════ -->
+<section class="sec sec-b" id="faq">
+  <div class="ctn">
+    <div class="sh sh-d reveal">
+      <span class="sh-label">Dúvidas Frequentes</span>
+      <h2>Respostas claras para suas dúvidas</h2>
+      <p>Tudo o que você precisa saber antes de iniciar seu atendimento.</p>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA FINAL ═══════════════════ -->
+<section class="cta-final">
+  <div class="ctn" style="position:relative;z-index:1">
+    <div class="reveal">
+      <span class="sh-label" style="opacity:.6">Pronto para resolver?</span>
+      <h2>Sua documentação resolvida com quem entende do assunto</h2>
+      <p>Fale com a Kaviski — atendimento profissional, ágil e seguro em Curitiba.</p>
+      <div class="cta-btns" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Resolver no WhatsApp
+        </a>
+        <a href="tel:+554132228060" class="btn-o">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Ligar: (41) 3222-8060
+        </a>
+      </div>
+      <div style="font-size:11px;color:var(--gm);margin-top:8px">Orientação clara do início ao fim</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONTATO ═══════════════════ -->
+<section class="sec sec-w" id="contato">
+  <div class="ctn">
+    <div class="contact-layout">
+      <div class="reveal">
+        <span class="sh-label sh-label-g">Contato</span>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-top:8px;margin-bottom:6px">Fale com a nossa equipe</h2>
+        <p style="font-size:14px;color:var(--gm)">Prontos para orientar você em Curitiba.</p>
+        <div class="contact-info">
+          <a href="tel:+554132228060" class="contact-item" style="color:var(--bk)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> <strong>(41) 3222-8060</strong></a>
+          <a href="tel:+554130278060" class="contact-item" style="color:var(--bk)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> <strong>(41) 3027-8060</strong></a>
+          <a href="mailto:atendimento@despachantekaviski.com.br" class="contact-item" style="color:var(--bk)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> atendimento@despachantekaviski.com.br</a>
+          <span class="contact-item" style="color:var(--bk)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Alameda Cabral, 36 — Centro, Curitiba/PR</span>
+        </div>
+        <div class="contact-hours"><strong>Horário de funcionamento</strong>Seg-Sex: 9h às 18h · Sáb: 9h às 12h</div>
+      </div>
+      <div class="reveal">
+        <div class="form-box" id="form-box">
+          <h3 style="font-family:var(--fd);font-size:19px;color:var(--bk);margin-bottom:3px">Solicite orientação da equipe</h3>
+          <p style="font-size:12px;color:var(--gm);margin-bottom:18px">Retornaremos com a melhor solução para seu caso.</p>
+          <div class="fg"><label class="fl">Nome</label><input type="text" class="fi" placeholder="Seu nome completo"></div>
+          <div class="fg"><label class="fl">Telefone</label><input type="tel" class="fi" placeholder="(41) 9 0000-0000"></div>
+          <div class="fg"><label class="fl">E-mail</label><input type="email" class="fi" placeholder="seu@email.com"></div>
+          <div class="fg"><label class="fl">Serviço</label><select class="fi"><option value="" disabled selected>Selecione o serviço</option><option>Transferência de Veículo</option><option>Emplacamento 0km</option><option>Licenciamento</option><option>2ª Via de Documentos</option><option>Regularização</option><option>Outro</option></select></div>
+          <div class="fg"><label class="fl">Mensagem</label><textarea class="fi" placeholder="O que precisa resolver?"></textarea></div>
+          <button class="btn-form" onclick="document.getElementById('form-box').innerHTML='<div style=text-align:center;padding:32px><div style=color:var(--yg);margin-bottom:12px><svg width=36 height=36 viewBox=&quot;0 0 24 24&quot; fill=none stroke=currentColor stroke-width=1.5><polyline points=&quot;20 6 9 17 4 12&quot;/></svg></div><h3 style=font-family:var(--fd);font-size:19px;color:var(--bk);margin-bottom:4px>Solicitação enviada!</h3><p style=font-size:13px;color:var(--gm)>Entraremos em contato em breve.</p></div>'">Quero atendimento <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+          <p style="font-size:10px;color:var(--gm);margin-top:8px;text-align:center">Dados protegidos · Também atendemos pelo <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" style="color:var(--yg);font-weight:600">WhatsApp</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="ftr">
+  <div class="ctn">
+    <div class="ftr-grid">
+      <div class="ftr-brand">
+        <span class="logo-t" style="font-size:18px">Kaviski<em>.</em></span>
+        <span class="logo-s">Despachante desde 1971</span>
+        <p>Referência em documentação veicular em Curitiba há mais de 50 anos. Atendimento seguro e ágil.</p>
+      </div>
+      <div>
+        <div class="ftr-col-t">Serviços</div>
+        <a href="#servicos" class="ftr-link">Transferência</a>
+        <a href="#servicos" class="ftr-link">Emplacamento</a>
+        <a href="#servicos" class="ftr-link">Licenciamento</a>
+        <a href="#servicos" class="ftr-link">2ª Via</a>
+        <a href="#servicos" class="ftr-link">Regularização</a>
+        <a href="#servicos" class="ftr-link">Consultoria</a>
+      </div>
+      <div>
+        <div class="ftr-col-t">Institucional</div>
+        <a href="#historia" class="ftr-link">Sobre nós</a>
+        <a href="#funciona" class="ftr-link">Como funciona</a>
+        <a href="#faq" class="ftr-link">Dúvidas</a>
+        <a href="#contato" class="ftr-link">Contato</a>
+        <a href="#" class="ftr-link">Política de Privacidade</a>
+      </div>
+      <div>
+        <div class="ftr-col-t">Contato</div>
+        <a href="tel:+554132228060" class="ftr-link">(41) 3222-8060</a>
+        <a href="tel:+554130278060" class="ftr-link">(41) 3027-8060</a>
+        <span class="ftr-link">Al. Cabral, 36 — Centro</span>
+        <span class="ftr-link">Curitiba/PR · 80.410-210</span>
+      </div>
+    </div>
+    <div class="ftr-bot">
+      <div class="ftr-copy">© 2026 Kaviski & Kaviski Despachante de Veículos LTDA — CNPJ: 37.759.920/0001-06</div>
+      <div class="ftr-soc">
+        <a href="https://www.facebook.com/kaviskidespachante" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/despachantekaviski/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- MOBILE STICKY -->
+<div class="mob-sticky">
+  <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Resolver agora
+  </a>
+  <a href="tel:+554132228060" class="btn-tel">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Ligar
+  </a>
+</div>
+
+<script>
+// ═══ SCROLL HEADER ═══
+window.addEventListener('scroll', () => {
+  document.getElementById('header').classList.toggle('solid', window.scrollY > 30);
+});
+
+// ═══ REVEAL ON SCROLL ═══
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ═══ DYNAMIC CONTENT ═══
+const WA = "https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento.";
+const ck = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+const al = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+const ar = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+const star = '<svg width="13" height="13" viewBox="0 0 24 24" fill="var(--y)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
+// Services
+const srvIcons = [
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>',
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a1 1 0 00-.8-.4H5.24a2 2 0 00-1.8 1.1l-.8 1.63A6 6 0 002 12.28V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>',
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>',
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>'
+];
+
+const srvData = [
+  {t:"Transferência de Veículo",s:"sem burocracia e com orientação completa",d:"Regularização da transferência conduzida do início ao fim. Sem filas e sem confusão.",b:"Processo ágil, seguro e sem complicação."},
+  {t:"Primeiro Emplacamento 0km",s:"rápido, seguro e com livre escolha de placa",d:"Emplacamento do veículo novo com agilidade. Possibilidade de escolha de placa.",b:"Carro novo documentado rapidamente."},
+  {t:"Licenciamento Anual",s:"sem risco de atraso ou irregularidade",d:"Quitação de débitos e CRLV digital dentro do prazo, evitando multas.",b:"Veículo sempre regularizado."},
+  {t:"2ª Via de Documentos",s:"reposição rápida do CRV, CRLV e recibo",d:"Segunda via de documentos extraviados ou danificados com processo simples.",b:"Documento reposto com rapidez."},
+  {t:"Regularização Documental",s:"diagnóstico e correção de pendências",d:"Análise completa, alteração de dados e resolução de irregularidades.",b:"Pendência identificada e resolvida."},
+  {t:"Consultoria Especializada",s:"orientação para casos complexos e multas",d:"Recurso de multas e orientação com 50+ anos de experiência.",b:"Experiência real no seu caso."}
+];
+
+document.getElementById('srv-grid').innerHTML = srvData.map((s,i) =>
+  `<div class="srv-card reveal"><div class="srv-icon">${srvIcons[i]}</div><div class="srv-title">${s.t}</div><div class="srv-sub">${s.s}</div><div class="srv-desc">${s.d}</div><div class="srv-ben">${ck} <span>${s.b}</span></div><a href="${WA}" target="_blank" rel="noopener" class="srv-link">Solicitar orientação ${ar}</a></div>`
+).join('');
+
+// Steps
+document.getElementById('steps-grid').innerHTML = [
+  {n:"01",t:"Você nos chama",d:"WhatsApp, telefone ou formulário."},
+  {n:"02",t:"Analisamos seu caso",d:"Avaliamos e orientamos o necessário."},
+  {n:"03",t:"Conduzimos o processo",d:"Cuidamos da burocracia no DETRAN."},
+  {n:"04",t:"Tudo pronto",d:"Documentação finalizada com transparência."}
+].map(s => `<div class="step reveal"><div class="step-n">${s.n}</div><div class="step-t">${s.t}</div><div class="step-d">${s.d}</div></div>`).join('');
+
+// Urgency risks
+document.getElementById('urg-list').innerHTML = [
+  "Multas por documentação vencida que acumulam e dobram de valor",
+  "Bloqueio do veículo pelo DETRAN, impedindo circulação",
+  "Dificuldade na hora de vender ou transferir o veículo",
+  "Apreensão do veículo em blitz e fiscalizações",
+  "Complicações judiciais em caso de acidente",
+  "Perda de prazos que geram custos adicionais"
+].map(r => `<div class="urg-item">${al} <span>${r}</span></div>`).join('');
+
+// Reasons
+document.getElementById('reasons-list').innerHTML = [
+  "Tradição real desde 1971 — mais de 50 anos",
+  "Equipe com 21 profissionais especializados",
+  "Parcerias em diversos estados do Brasil",
+  "Atendimento a multinacionais e empresas nacionais",
+  "Reconhecimento por sindicatos em todo o país",
+  "Localização central em Curitiba — fácil acesso",
+  "Acompanhamento transparente do início ao fim",
+  "Processo conduzido com segurança e dentro da lei"
+].map(r => `<div class="reason-item">${ck} ${r}</div>`).join('');
+
+// History stats
+document.getElementById('hist-stats').innerHTML = [
+  {n:"1971",l:"Fundação"},{n:"21",l:"Profissionais"},{n:"50+",l:"Anos de mercado"},{n:"Centro",l:"Curitiba, PR"}
+].map(s => `<div class="hist-stat"><div class="hist-stat-n">${s.n}</div><div class="hist-stat-l">${s.l}</div></div>`).join('');
+
+// Testimonials
+document.getElementById('test-grid').innerHTML = [
+  {t:"Atendimento excelente e ágil. Transferência em poucos dias, sem complicação. Recomendo.",a:"Cliente em Curitiba",r:"Transferência de Veículo"},
+  {t:"Empresa séria. Utilizo há anos para frota. Profissionalismo impecável.",a:"Cliente Corporativo",r:"Gestão de Frota"},
+  {t:"Segunda via com urgência resolvida rapidamente. Atendimento humano. Nota 10.",a:"Cliente em Curitiba",r:"2ª Via de Documento"}
+].map(c => `<div class="test-card reveal"><div class="test-stars">${star.repeat(5)}</div><div class="test-txt">"${c.t}"</div><div class="test-author">${c.a}</div><div class="test-role">${c.r}</div></div>`).join('');
+
+// FAQ
+document.getElementById('faq-list').innerHTML = [
+  {q:"Quais documentos preciso para transferir um veículo em Curitiba?",a:"Pessoa física: documento com foto, CPF, comprovante de endereço, CRV original e débitos quitados. Jurídica: também CNPJ e poderes. Orientamos caso a caso."},
+  {q:"Quanto tempo leva para regularizar a documentação?",a:"Depende do serviço, mas a maioria das transferências é finalizada em poucos dias úteis."},
+  {q:"Posso iniciar o atendimento pelo WhatsApp?",a:"Sim. Envie documentos pelo WhatsApp e conduzimos o processo."},
+  {q:"Atendem só Curitiba ou a região metropolitana?",a:"Atendemos Curitiba, região metropolitana e outros estados."},
+  {q:"Quais serviços oferecem?",a:"Transferência, emplacamento 0km, licenciamento, 2ª via, regularização, multas e consultoria."},
+  {q:"Preciso ir pessoalmente?",a:"Nem sempre. Muitos serviços começam pelo WhatsApp. Quando necessário, estamos na Alameda Cabral, 36 — Centro."},
+  {q:"Qual o horário de funcionamento?",a:"Segunda a sexta: 9h às 18h. Sábado: 9h às 12h."}
+].map((f,i) => `<div class="faq-item"><button class="faq-q" onclick="toggleFaq(${i})" id="fq${i}">${f.q}<span class="faq-chev" id="fc${i}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></button><div class="faq-a" id="fa${i}"><p>${f.a}</p></div></div>`).join('');
+
+// Re-observe dynamically added reveals
+document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
+
+// FAQ toggle
+let openFaq = null;
+function toggleFaq(i) {
+  if (openFaq !== null && openFaq !== i) {
+    document.getElementById('fa'+openFaq).classList.remove('open');
+    document.getElementById('fc'+openFaq).classList.remove('open');
+  }
+  const a = document.getElementById('fa'+i);
+  const c = document.getElementById('fc'+i);
+  if (openFaq === i) { a.classList.remove('open'); c.classList.remove('open'); openFaq = null; }
+  else { a.classList.add('open'); c.classList.add('open'); openFaq = i; }
 }
+</script>
+</body>
+</html>
