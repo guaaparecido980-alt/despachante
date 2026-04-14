@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Despachante Kaviski | Despachante em Curitiba desde 1971 — Transferência, Licenciamento e Documentação Veicular</title>
-<meta name="description" content="Despachante em Curitiba com mais de 50 anos de tradição. Transferência de veículo, licenciamento, emplacamento 0km e regularização documental com segurança e agilidade. Atendimento rápido pelo WhatsApp.">
-<meta property="og:title" content="Despachante Kaviski | Documentação Veicular em Curitiba desde 1971">
-<meta property="og:description" content="Mais de 50 anos resolvendo documentação veicular em Curitiba. Transferência, licenciamento, emplacamento e regularização com segurança.">
+<title>Despachante em Curitiba | Kaviski — Transferência, Licenciamento e Regularização Veicular desde 1971</title>
+<meta name="description" content="Precisa de despachante em Curitiba? A Kaviski resolve transferência de veículo, licenciamento, emplacamento 0km e regularização documental há mais de 50 anos. Atendimento rápido pelo WhatsApp. Ligue agora.">
+<meta property="og:title" content="Despachante em Curitiba | Kaviski — Documentação Veicular com 50+ Anos de Experiência">
+<meta property="og:description" content="Transferência, licenciamento e regularização veicular em Curitiba. Equipe com 21 especialistas, atendimento no WhatsApp e tradição desde 1971.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,41 +72,47 @@ img { max-width: 100%; display: block; }
 /* ═══ HEADER ═══ */
 .hdr {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  transition: background .4s, box-shadow .4s, backdrop-filter .4s;
+  transition: background .4s, box-shadow .4s, backdrop-filter .4s, border-color .4s;
+  border-bottom: 1px solid transparent;
 }
 .hdr.solid {
-  background: rgba(5,5,5,.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 rgba(242,213,0,.06);
+  background: rgba(5,5,5,.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 2px 20px rgba(0,0,0,.3);
+  border-bottom-color: rgba(242,213,0,.08);
 }
 .hdr-in {
-  max-width: 1100px; margin: 0 auto; padding: 0 20px;
-  display: flex; align-items: center; justify-content: space-between; height: 64px;
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 74px;
 }
-.logo { display: flex; flex-direction: column; }
-.logo-t { font-family: var(--fd); font-size: 22px; color: var(--w); line-height: 1; }
-.logo-t em { font-style: italic; color: var(--y); }
-.logo-s { font-size: 9px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--gm); font-family: var(--fb); }
-.nav { display: flex; align-items: center; gap: 22px; }
-.nav a { color: var(--gt); font-size: 12px; font-weight: 500; transition: color var(--t); }
+.logo { display: flex; align-items: center; flex-shrink: 0; }
+.logo-img {
+  height: 52px; width: auto; object-fit: contain;
+  display: block; transition: opacity var(--t);
+}
+.logo:hover .logo-img { opacity: .88; }
+.nav { display: flex; align-items: center; gap: 24px; }
+.nav a { color: var(--gt); font-size: 12px; font-weight: 500; transition: color var(--t); letter-spacing: .01em; }
 .nav a:hover { color: var(--y); }
 .nav-cta {
   background: var(--y) !important; color: var(--bk) !important;
-  padding: 8px 18px; border-radius: 99px; font-weight: 700 !important;
+  padding: 10px 22px; border-radius: 99px; font-weight: 700 !important;
   font-size: 10px !important; letter-spacing: .06em !important; text-transform: uppercase;
   transition: all var(--t) !important;
+  box-shadow: 0 2px 12px rgba(242,213,0,.15);
 }
-.nav-cta:hover { background: var(--yh) !important; }
-.mob-tog { display: none; background: none; border: none; color: var(--w); cursor: pointer; }
+.nav-cta:hover { background: var(--yh) !important; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(242,213,0,.25); }
+.mob-tog { display: none; background: none; border: none; color: var(--w); cursor: pointer; padding: 6px; }
 .mob-menu {
   position: fixed; inset: 0; z-index: 99; background: var(--bk);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
   opacity: 0; pointer-events: none; transition: opacity .3s;
 }
 .mob-menu.open { opacity: 1; pointer-events: all; }
 .mob-menu a { color: var(--w); font-size: 17px; font-weight: 500; }
-.mob-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--w); cursor: pointer; }
+.mob-menu .mob-logo { height: 44px; width: auto; object-fit: contain; margin-bottom: 16px; }
+.mob-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--w); cursor: pointer; }
 
 /* ═══ HERO ═══ */
 .hero {
@@ -292,7 +298,7 @@ img { max-width: 100%; display: block; }
   overflow: hidden; max-height: 0;
   transition: max-height .4s ease, padding .4s;
 }
-.faq-a.open { max-height: 240px; padding-bottom: 20px; }
+.faq-a.open { max-height: 320px; padding-bottom: 20px; }
 .faq-a p { font-size: 13px; color: var(--gt); line-height: 1.7; }
 
 /* ═══ CTA FINAL ═══ */
@@ -358,24 +364,26 @@ textarea.fi { resize: vertical; min-height: 86px; }
 /* ═══ WA FLOAT ═══ */
 .wa-float {
   position: fixed; bottom: 20px; right: 20px; z-index: 90;
-  background: var(--gw); color: var(--w); width: 54px; height: 54px;
+  background: var(--gw); color: var(--w); width: 56px; height: 56px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 18px rgba(37,211,102,.35); transition: all var(--t);
+  animation: wa-pulse 3s infinite;
 }
-.wa-float:hover { transform: scale(1.08); }
+@keyframes wa-pulse { 0%,100% { box-shadow: 0 4px 18px rgba(37,211,102,.35); } 50% { box-shadow: 0 4px 28px rgba(37,211,102,.55); } }
+.wa-float:hover { transform: scale(1.1); animation: none; box-shadow: 0 6px 30px rgba(37,211,102,.5); }
 
 /* ═══ MOBILE STICKY ═══ */
 .mob-sticky {
   display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 80;
-  background: var(--bk); border-top: 1px solid rgba(242,213,0,.1);
-  padding: 8px 12px; gap: 8px;
+  background: var(--bk); border-top: 2px solid rgba(242,213,0,.15);
+  padding: 10px 14px; gap: 8px;
 }
-.mob-sticky .btn-y { flex: 1; justify-content: center; padding: 12px; font-size: 12px; border-radius: var(--rs); }
+.mob-sticky .btn-y { flex: 1; justify-content: center; padding: 14px; font-size: 13px; border-radius: var(--rs); font-weight: 700; }
 .mob-sticky .btn-tel {
   flex: 0 0 auto; background: var(--gr); color: var(--w);
-  padding: 12px 16px; border-radius: var(--rs); display: flex;
+  padding: 14px 18px; border-radius: var(--rs); display: flex;
   align-items: center; gap: 5px; font-size: 12px; font-weight: 600;
-  border: 1px solid rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
 }
 
 /* ═══ ANIMATIONS ═══ */
@@ -389,10 +397,13 @@ textarea.fi { resize: vertical; min-height: 86px; }
   .urg-layout, .reasons-layout, .hist-layout, .contact-layout { grid-template-columns: 1fr; gap: 30px; }
   .test-grid { grid-template-columns: 1fr; }
   .ftr-grid { grid-template-columns: 1fr 1fr; }
+  .logo-img { height: 46px; }
 }
 @media (max-width: 768px) {
   .nav { display: none; }
   .mob-tog { display: block; }
+  .logo-img { height: 40px; }
+  .hdr-in { height: 64px; }
   .hero h1 { font-size: 27px; }
   .hero-ct { padding: 110px 0 90px; }
   .trust-grid { grid-template-columns: 1fr 1fr; }
@@ -415,9 +426,8 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <!-- ═══════════════════ HEADER ═══════════════════ -->
 <header class="hdr" id="header">
   <div class="hdr-in">
-    <a href="#" class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-      <span class="logo-t">Kaviski<em>.</em></span>
-      <span class="logo-s">Despachante desde 1971</span>
+    <a href="#" class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Despachante Kaviski — Início">
+      <img src="logo.png" alt="Despachante Kaviski — Despachante Oficial do DETRAN em Curitiba desde 1971" class="logo-img">
     </a>
     <nav class="nav">
       <a href="#servicos">Serviços</a>
@@ -427,17 +437,18 @@ textarea.fi { resize: vertical; min-height: 86px; }
       <a href="#contato">Contato</a>
       <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="nav-cta">Resolver agora</a>
     </nav>
-    <button class="mob-tog" onclick="document.getElementById('mobmenu').classList.add('open')" aria-label="Menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <button class="mob-tog" onclick="document.getElementById('mobmenu').classList.add('open')" aria-label="Abrir menu de navegação">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 </header>
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobmenu">
-  <button class="mob-close" onclick="document.getElementById('mobmenu').classList.remove('open')">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  <button class="mob-close" onclick="document.getElementById('mobmenu').classList.remove('open')" aria-label="Fechar menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
+  <img src="logo.png" alt="Despachante Kaviski" class="mob-logo">
   <a href="#servicos" onclick="document.getElementById('mobmenu').classList.remove('open')">Serviços</a>
   <a href="#funciona" onclick="document.getElementById('mobmenu').classList.remove('open')">Como Funciona</a>
   <a href="#historia" onclick="document.getElementById('mobmenu').classList.remove('open')">Sobre</a>
@@ -450,36 +461,40 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <section class="hero" id="hero">
   <div class="ctn hero-ct">
     <div class="reveal">
-      <div class="badge"><span class="badge-dot"></span> Despachante Oficial DETRAN-PR • Curitiba</div>
+      <div style="font-size:11px;color:var(--rd);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:6px;letter-spacing:.02em">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Não deixe sua documentação virar multa, bloqueio ou dor de cabeça
+      </div>
+      <div class="badge"><span class="badge-dot"></span> Despachante Oficial DETRAN-PR • Curitiba — Centro</div>
     </div>
     <div class="reveal" style="transition-delay:.1s">
-      <h1>Despachante em Curitiba para <span class="yl">resolver sua documentação</span> sem burocracia</h1>
+      <h1>Seu problema com <span class="yl">documentação veicular</span> resolvido pelo melhor despachante de Curitiba</h1>
     </div>
     <div class="reveal" style="transition-delay:.2s">
-      <p class="hero-p">Transferência, licenciamento, emplacamento e toda regularização veicular com segurança por quem atua em Curitiba há mais de 50 anos.</p>
+      <p class="hero-p">Transferência, licenciamento, emplacamento e regularização — tudo conduzido pela nossa equipe de 21 especialistas com mais de 50 anos de experiência. Você não lida com burocracia. A gente resolve.</p>
     </div>
     <div class="reveal" style="transition-delay:.28s">
       <div class="hero-bullets">
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Atendimento rápido no WhatsApp</span>
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Tradição desde 1971</span>
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Processo seguro</span>
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Centro de Curitiba</span>
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Resposta rápida no WhatsApp</span>
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 50+ anos de confiança desde 1971</span>
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Você não enfrenta fila nem burocracia</span>
+        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Escritório no Centro de Curitiba</span>
       </div>
     </div>
     <div class="reveal" style="transition-delay:.36s">
       <div class="hero-acts">
         <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Resolver no WhatsApp agora
+          Quero resolver meu problema agora
         </a>
         <a href="tel:+554132228060" class="btn-o">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Ligar: (41) 3222-8060
+          Falar com especialista: (41) 3222-8060
         </a>
       </div>
       <div class="hero-micro">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        Resposta rápida em horário comercial · Atendimento direto com a equipe
+        Atendimento direto com a equipe · Sem enrolação · Processo conduzido com segurança
       </div>
     </div>
   </div>
@@ -499,9 +514,9 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <section class="sec sec-b" id="servicos">
   <div class="ctn">
     <div class="sh sh-d reveal">
-      <span class="sh-label">Nossos Serviços</span>
-      <h2>Documentação veicular resolvida de verdade</h2>
-      <p>Do emplacamento à regularização complexa — cada processo com experiência e segurança.</p>
+      <span class="sh-label">Serviços de Despachante em Curitiba</span>
+      <h2>Cada problema documental tem solução — e a gente resolve pra você</h2>
+      <p>Não enfrente filas, prazos confusos ou processos burocráticos sozinho. Nossa equipe conduz tudo.</p>
     </div>
     <div class="srv-grid" id="srv-grid"></div>
   </div>
@@ -511,17 +526,17 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <section class="sec sec-w" id="funciona">
   <div class="ctn">
     <div class="sh sh-w reveal">
-      <span class="sh-label sh-label-g">Processo simples</span>
-      <h2>Como funciona o atendimento</h2>
-      <p>Você não enfrenta a burocracia sozinho. Orientamos cada etapa com clareza.</p>
+      <span class="sh-label sh-label-g">Simples e sem enrolação</span>
+      <h2>Veja como é fácil resolver com a Kaviski</h2>
+      <p>Enquanto você cuida da sua vida, nossa equipe cuida de toda a burocracia. São 4 etapas simples:</p>
     </div>
     <div class="steps-grid" id="steps-grid"></div>
     <div style="text-align:center;margin-top:32px" class="reveal">
       <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y" style="background:var(--bk);color:var(--y)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Iniciar meu atendimento
+        Quero resolver agora
       </a>
-      <div style="font-size:11px;color:var(--gm);margin-top:6px">Sem complicação e sem enrolação</div>
+      <div style="font-size:11px;color:var(--gm);margin-top:6px">Atendimento direto com a equipe — sem burocracia desnecessária</div>
     </div>
   </div>
 </section>
@@ -532,14 +547,14 @@ textarea.fi { resize: vertical; min-height: 86px; }
     <div class="urg-layout">
       <div class="reveal">
         <div style="color:var(--rd);margin-bottom:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-        <span style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rd)">Atenção</span>
-        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin:8px 0 12px">Adiar a regularização do veículo pode sair caro</h2>
-        <p style="font-size:14px;color:var(--gt);line-height:1.75;margin-bottom:22px">Pendências documentais não se resolvem sozinhas. Quanto mais tempo passa, mais complicado e custoso fica:</p>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rd)">Você sabia?</span>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin:8px 0 12px">Documentação irregular gera multa, bloqueio e apreensão do veículo</h2>
+        <p style="font-size:14px;color:var(--gt);line-height:1.75;margin-bottom:22px">Cada dia que passa com pendência documental é um risco real. Veja o que pode acontecer se você não regularizar:</p>
         <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20regularizar%20meu%20ve%C3%ADculo." target="_blank" rel="noopener" class="btn-y">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Quero regularizar agora
+          Quero resolver antes que complique
         </a>
-        <div style="font-size:11px;color:var(--gm);margin-top:6px">Equipe preparada para orientar seu caso</div>
+        <div style="font-size:11px;color:var(--gm);margin-top:6px">Fale agora com um especialista — orientação rápida e segura</div>
       </div>
       <div class="reveal">
         <div class="urg-list" id="urg-list"></div>
@@ -553,9 +568,9 @@ textarea.fi { resize: vertical; min-height: 86px; }
   <div class="ctn">
     <div class="reasons-layout">
       <div class="reveal">
-        <span class="sh-label sh-label-g">Diferenciais</span>
-        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-top:8px;margin-bottom:12px">O que diferencia a Kaviski de um despachante comum</h2>
-        <p style="font-size:14px;color:var(--gm);line-height:1.75;margin-bottom:22px">Mais de cinco décadas não são apenas tempo. São consistência, reputação e confiança construída com gerações de clientes.</p>
+        <span class="sh-label sh-label-g">Por que a Kaviski?</span>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-top:8px;margin-bottom:12px">Enquanto outros executam processos, a Kaviski orienta você em cada etapa</h2>
+        <p style="font-size:14px;color:var(--gm);line-height:1.75;margin-bottom:22px">Qualquer despachante pode protocolar um documento. Poucos têm 50 anos de experiência, uma equipe de 21 profissionais e o compromisso de explicar cada passo com clareza para você.</p>
         <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y" style="background:var(--bk);color:var(--y)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Falar com especialista
@@ -573,13 +588,13 @@ textarea.fi { resize: vertical; min-height: 86px; }
   <div class="ctn">
     <div class="hist-layout">
       <div class="reveal">
-        <span class="sh-label">Nossa História</span>
+        <span class="sh-label">Mais de 50 anos em Curitiba</span>
         <div class="hist-year">1971</div>
-        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin-bottom:16px">Tradição que atravessa gerações em Curitiba</h2>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin-bottom:16px">Uma história de confiança construída cliente a cliente</h2>
         <div class="hist-txt">
-          <p>Em 1971, João Antonio Kaviski fundou o Despachante Kaviski no coração de Curitiba. O compromisso desde o primeiro dia: serviço eficaz, seguro e centrado no cliente.</p>
-          <p>Cinco décadas depois: 21 profissionais especializados, reconhecimento por sindicatos de todo o Brasil e parcerias com multinacionais e empresas de diversos estados.</p>
-          <p>A tradição familiar se mantém viva, integrada às tecnologias modernas — sem jamais perder a essência do serviço humano que nos diferencia há gerações.</p>
+          <p>Quando João Antonio Kaviski abriu as portas na Alameda Cabral, no Centro de Curitiba, em 1971, o compromisso era simples: resolver a documentação dos clientes com honestidade e eficiência. Esse compromisso nunca mudou.</p>
+          <p>Mais de 50 anos depois, a empresa cresceu para 21 profissionais especializados, construiu parcerias em diversos estados e conquistou reconhecimento de sindicatos, multinacionais e milhares de clientes em todo o Paraná.</p>
+          <p>A tradição familiar continua viva — agora com atendimento moderno pelo WhatsApp, mas com a mesma seriedade que fez da Kaviski referência absoluta em Curitiba.</p>
         </div>
         <div class="hist-badge">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
@@ -597,9 +612,14 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <section class="sec sec-w" id="depoimentos">
   <div class="ctn">
     <div class="sh sh-w reveal">
-      <span class="sh-label sh-label-g">Avaliações</span>
-      <h2>A confiança de quem já resolveu com a Kaviski</h2>
-      <p>Atendimento, agilidade e segurança reconhecidos por nossos clientes.</p>
+      <span class="sh-label sh-label-g">Clientes reais, resultados reais</span>
+      <h2>Por que milhares de clientes confiam na Kaviski há décadas</h2>
+      <p>Quem resolve com a gente, volta e recomenda. Veja o que dizem:</p>
+    </div>
+    <div style="display:flex;justify-content:center;gap:32px;margin-bottom:28px;flex-wrap:wrap" class="reveal">
+      <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--bk)">50+</div><div style="font-size:10px;color:var(--gm);font-weight:600;text-transform:uppercase;letter-spacing:.08em">anos de mercado</div></div>
+      <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--bk)">21</div><div style="font-size:10px;color:var(--gm);font-weight:600;text-transform:uppercase;letter-spacing:.08em">especialistas</div></div>
+      <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--y)">★ 5.0</div><div style="font-size:10px;color:var(--gm);font-weight:600;text-transform:uppercase;letter-spacing:.08em">avaliação Google</div></div>
     </div>
     <div class="test-grid" id="test-grid"></div>
   </div>
@@ -609,9 +629,9 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <section class="sec sec-b" id="faq">
   <div class="ctn">
     <div class="sh sh-d reveal">
-      <span class="sh-label">Dúvidas Frequentes</span>
-      <h2>Respostas claras para suas dúvidas</h2>
-      <p>Tudo o que você precisa saber antes de iniciar seu atendimento.</p>
+      <span class="sh-label">Dúvidas sobre despachante em Curitiba</span>
+      <h2>Perguntas que nossos clientes fazem antes de resolver</h2>
+      <p>Se sua dúvida está aqui, a resposta é rápida. Se não está, fale com a gente.</p>
     </div>
     <div class="faq-list" id="faq-list"></div>
   </div>
@@ -621,20 +641,20 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <section class="cta-final">
   <div class="ctn" style="position:relative;z-index:1">
     <div class="reveal">
-      <span class="sh-label" style="opacity:.6">Pronto para resolver?</span>
-      <h2>Sua documentação resolvida com quem entende do assunto</h2>
-      <p>Fale com a Kaviski — atendimento profissional, ágil e seguro em Curitiba.</p>
+      <span class="sh-label" style="opacity:.6">Não deixe pra depois</span>
+      <h2>Resolva sua documentação agora com quem faz isso há mais de 50 anos</h2>
+      <p>Uma conversa no WhatsApp é tudo que separa você de ter o problema resolvido. Fale com a Kaviski agora.</p>
       <div class="cta-btns" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Resolver no WhatsApp
+          Quero resolver agora
         </a>
         <a href="tel:+554132228060" class="btn-o">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Ligar: (41) 3222-8060
+          Falar com especialista: (41) 3222-8060
         </a>
       </div>
-      <div style="font-size:11px;color:var(--gm);margin-top:8px">Orientação clara do início ao fim</div>
+      <div style="font-size:11px;color:var(--gm);margin-top:8px">Processo conduzido com segurança · Sem burocracia desnecessária</div>
     </div>
   </div>
 </section>
@@ -644,9 +664,9 @@ textarea.fi { resize: vertical; min-height: 86px; }
   <div class="ctn">
     <div class="contact-layout">
       <div class="reveal">
-        <span class="sh-label sh-label-g">Contato</span>
-        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-top:8px;margin-bottom:6px">Fale com a nossa equipe</h2>
-        <p style="font-size:14px;color:var(--gm)">Prontos para orientar você em Curitiba.</p>
+        <span class="sh-label sh-label-g">Atendimento em Curitiba</span>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-top:8px;margin-bottom:6px">Fale agora com a equipe da Kaviski</h2>
+        <p style="font-size:14px;color:var(--gm)">Escritório no Centro de Curitiba, com atendimento presencial e remoto. Escolha o canal que preferir:</p>
         <div class="contact-info">
           <a href="tel:+554132228060" class="contact-item" style="color:var(--bk)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> <strong>(41) 3222-8060</strong></a>
           <a href="tel:+554130278060" class="contact-item" style="color:var(--bk)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> <strong>(41) 3027-8060</strong></a>
@@ -657,15 +677,15 @@ textarea.fi { resize: vertical; min-height: 86px; }
       </div>
       <div class="reveal">
         <div class="form-box" id="form-box">
-          <h3 style="font-family:var(--fd);font-size:19px;color:var(--bk);margin-bottom:3px">Solicite orientação da equipe</h3>
-          <p style="font-size:12px;color:var(--gm);margin-bottom:18px">Retornaremos com a melhor solução para seu caso.</p>
+          <h3 style="font-family:var(--fd);font-size:19px;color:var(--bk);margin-bottom:3px">Fale com a equipe da Kaviski agora</h3>
+          <p style="font-size:12px;color:var(--gm);margin-bottom:18px">Preencha seus dados e retornaremos rapidamente com a solução ideal pro seu caso.</p>
           <div class="fg"><label class="fl">Nome</label><input type="text" class="fi" placeholder="Seu nome completo"></div>
           <div class="fg"><label class="fl">Telefone</label><input type="tel" class="fi" placeholder="(41) 9 0000-0000"></div>
           <div class="fg"><label class="fl">E-mail</label><input type="email" class="fi" placeholder="seu@email.com"></div>
           <div class="fg"><label class="fl">Serviço</label><select class="fi"><option value="" disabled selected>Selecione o serviço</option><option>Transferência de Veículo</option><option>Emplacamento 0km</option><option>Licenciamento</option><option>2ª Via de Documentos</option><option>Regularização</option><option>Outro</option></select></div>
           <div class="fg"><label class="fl">Mensagem</label><textarea class="fi" placeholder="O que precisa resolver?"></textarea></div>
-          <button class="btn-form" onclick="document.getElementById('form-box').innerHTML='<div style=text-align:center;padding:32px><div style=color:var(--yg);margin-bottom:12px><svg width=36 height=36 viewBox=&quot;0 0 24 24&quot; fill=none stroke=currentColor stroke-width=1.5><polyline points=&quot;20 6 9 17 4 12&quot;/></svg></div><h3 style=font-family:var(--fd);font-size:19px;color:var(--bk);margin-bottom:4px>Solicitação enviada!</h3><p style=font-size:13px;color:var(--gm)>Entraremos em contato em breve.</p></div>'">Quero atendimento <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-          <p style="font-size:10px;color:var(--gm);margin-top:8px;text-align:center">Dados protegidos · Também atendemos pelo <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" style="color:var(--yg);font-weight:600">WhatsApp</a></p>
+          <button class="btn-form" onclick="document.getElementById('form-box').innerHTML='<div style=text-align:center;padding:32px><div style=color:var(--yg);margin-bottom:12px><svg width=36 height=36 viewBox=&quot;0 0 24 24&quot; fill=none stroke=currentColor stroke-width=1.5><polyline points=&quot;20 6 9 17 4 12&quot;/></svg></div><h3 style=font-family:var(--fd);font-size:19px;color:var(--bk);margin-bottom:4px>Recebemos sua solicitação!</h3><p style=font-size:13px;color:var(--gm)>Nossa equipe vai entrar em contato em breve. Se preferir, <a href=https://api.whatsapp.com/send?phone=554130278060 target=_blank style=color:var(--yg);font-weight:700>fale agora pelo WhatsApp</a>.</p></div>'">Quero atendimento agora <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+          <p style="font-size:10px;color:var(--gm);margin-top:8px;text-align:center">Seus dados são protegidos e usados apenas para contato · Se preferir, fale direto pelo <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" style="color:var(--yg);font-weight:600">WhatsApp</a></p>
         </div>
       </div>
     </div>
@@ -677,8 +697,7 @@ textarea.fi { resize: vertical; min-height: 86px; }
   <div class="ctn">
     <div class="ftr-grid">
       <div class="ftr-brand">
-        <span class="logo-t" style="font-size:18px">Kaviski<em>.</em></span>
-        <span class="logo-s">Despachante desde 1971</span>
+        <img src="logo.png" alt="Despachante Kaviski" style="height:38px;width:auto;object-fit:contain;margin-bottom:4px">
         <p>Referência em documentação veicular em Curitiba há mais de 50 anos. Atendimento seguro e ágil.</p>
       </div>
       <div>
@@ -725,11 +744,11 @@ textarea.fi { resize: vertical; min-height: 86px; }
 <div class="mob-sticky">
   <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    Resolver agora
+    Quero resolver agora
   </a>
   <a href="tel:+554132228060" class="btn-tel">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    Ligar
+    Ligar agora
   </a>
 </div>
 
@@ -763,16 +782,16 @@ const srvIcons = [
 ];
 
 const srvData = [
-  {t:"Transferência de Veículo",s:"sem burocracia e com orientação completa",d:"Regularização da transferência conduzida do início ao fim. Sem filas e sem confusão.",b:"Processo ágil, seguro e sem complicação."},
-  {t:"Primeiro Emplacamento 0km",s:"rápido, seguro e com livre escolha de placa",d:"Emplacamento do veículo novo com agilidade. Possibilidade de escolha de placa.",b:"Carro novo documentado rapidamente."},
-  {t:"Licenciamento Anual",s:"sem risco de atraso ou irregularidade",d:"Quitação de débitos e CRLV digital dentro do prazo, evitando multas.",b:"Veículo sempre regularizado."},
-  {t:"2ª Via de Documentos",s:"reposição rápida do CRV, CRLV e recibo",d:"Segunda via de documentos extraviados ou danificados com processo simples.",b:"Documento reposto com rapidez."},
-  {t:"Regularização Documental",s:"diagnóstico e correção de pendências",d:"Análise completa, alteração de dados e resolução de irregularidades.",b:"Pendência identificada e resolvida."},
-  {t:"Consultoria Especializada",s:"orientação para casos complexos e multas",d:"Recurso de multas e orientação com 50+ anos de experiência.",b:"Experiência real no seu caso."}
+  {t:"Transferência de Veículo",s:"comprou ou vendeu? a gente cuida de toda a papelada",d:"Você não precisa entender de burocracia. Nossa equipe conduz toda a transferência de propriedade — do primeiro documento até a conclusão no DETRAN.",b:"Processo orientado do início ao fim, sem você enfrentar fila."},
+  {t:"Primeiro Emplacamento 0km",s:"seu carro novo na rua com tudo em dia — rápido",d:"Acabou de comprar um 0km? Cuidamos de toda a documentação e emplacamento com agilidade, incluindo livre escolha de placa.",b:"Veículo novo documentado sem complicação nenhuma."},
+  {t:"Licenciamento Anual",s:"evite multas e surpresas com o licenciamento atrasado",d:"Muita gente só lembra do licenciamento quando já levou multa. Nossa equipe quita débitos e emite o CRLV digital dentro do prazo.",b:"Seu veículo sempre regularizado, sem risco de apreensão."},
+  {t:"2ª Via de Documentos",s:"perdeu ou danificou? repomos CRV, CRLV e recibo rápido",d:"Documento extraviado, roubado ou danificado não precisa ser dor de cabeça. Fazemos a reposição com processo simplificado.",b:"Documento reposto com rapidez e sem burocracia pra você."},
+  {t:"Regularização Documental",s:"pendência no veículo? a gente encontra e resolve",d:"Analisamos toda a situação documental, identificamos irregularidades e corrigimos tudo — alteração de dados, baixa de circulação, o que precisar.",b:"Diagnóstico completo e solução conduzida pela equipe."},
+  {t:"Consultoria Especializada",s:"caso difícil? 50 anos de experiência trabalham pra você",d:"Recurso de multas, situações complexas e orientação documental especializada. Experiência real de quem já resolveu milhares de casos em Curitiba.",b:"Orientação segura para o seu caso específico."}
 ];
 
 document.getElementById('srv-grid').innerHTML = srvData.map((s,i) =>
-  `<div class="srv-card reveal"><div class="srv-icon">${srvIcons[i]}</div><div class="srv-title">${s.t}</div><div class="srv-sub">${s.s}</div><div class="srv-desc">${s.d}</div><div class="srv-ben">${ck} <span>${s.b}</span></div><a href="${WA}" target="_blank" rel="noopener" class="srv-link">Solicitar orientação ${ar}</a></div>`
+  `<div class="srv-card reveal"><div class="srv-icon">${srvIcons[i]}</div><div class="srv-title">${s.t}</div><div class="srv-sub">${s.s}</div><div class="srv-desc">${s.d}</div><div class="srv-ben">${ck} <span>${s.b}</span></div><a href="${WA}" target="_blank" rel="noopener" class="srv-link">Quero resolver isso agora ${ar}</a></div>`
 ).join('');
 
 // Steps
@@ -785,24 +804,24 @@ document.getElementById('steps-grid').innerHTML = [
 
 // Urgency risks
 document.getElementById('urg-list').innerHTML = [
-  "Multas por documentação vencida que acumulam e dobram de valor",
-  "Bloqueio do veículo pelo DETRAN, impedindo circulação",
-  "Dificuldade na hora de vender ou transferir o veículo",
-  "Apreensão do veículo em blitz e fiscalizações",
-  "Complicações judiciais em caso de acidente",
-  "Perda de prazos que geram custos adicionais"
+  "Multas que acumulam e dobram de valor — e podem ultrapassar R$ 1.000",
+  "Veículo bloqueado no sistema do DETRAN, sem poder circular legalmente",
+  "Impossibilidade de vender ou transferir enquanto houver pendência",
+  "Risco de apreensão do veículo em qualquer blitz ou fiscalização",
+  "Responsabilidade legal em caso de acidente com documento irregular",
+  "Custos e prazos muito maiores quando o problema se acumula"
 ].map(r => `<div class="urg-item">${al} <span>${r}</span></div>`).join('');
 
 // Reasons
 document.getElementById('reasons-list').innerHTML = [
-  "Tradição real desde 1971 — mais de 50 anos",
-  "Equipe com 21 profissionais especializados",
-  "Parcerias em diversos estados do Brasil",
-  "Atendimento a multinacionais e empresas nacionais",
-  "Reconhecimento por sindicatos em todo o país",
-  "Localização central em Curitiba — fácil acesso",
-  "Acompanhamento transparente do início ao fim",
-  "Processo conduzido com segurança e dentro da lei"
+  "Mais de 50 anos resolvendo documentação — não somos iniciantes",
+  "21 profissionais especializados dedicados ao seu caso",
+  "Parcerias em diversos estados — resolvemos de qualquer lugar",
+  "Multinacionais e grandes empresas confiam na Kaviski",
+  "Reconhecimento de sindicatos em todo o Brasil",
+  "Escritório no Centro de Curitiba — fácil acesso pra você",
+  "Acompanhamento transparente: você sabe o que está acontecendo",
+  "Todo processo conduzido dentro da lei — segurança real"
 ].map(r => `<div class="reason-item">${ck} ${r}</div>`).join('');
 
 // History stats
@@ -812,20 +831,20 @@ document.getElementById('hist-stats').innerHTML = [
 
 // Testimonials
 document.getElementById('test-grid').innerHTML = [
-  {t:"Atendimento excelente e ágil. Transferência em poucos dias, sem complicação. Recomendo.",a:"Cliente em Curitiba",r:"Transferência de Veículo"},
-  {t:"Empresa séria. Utilizo há anos para frota. Profissionalismo impecável.",a:"Cliente Corporativo",r:"Gestão de Frota"},
-  {t:"Segunda via com urgência resolvida rapidamente. Atendimento humano. Nota 10.",a:"Cliente em Curitiba",r:"2ª Via de Documento"}
+  {t:"Comprei um carro usado e tava com medo de complicação na transferência. A Kaviski resolveu tudo em 3 dias. Atendimento nota mil.",a:"Rodrigo M.",r:"Transferência de Veículo — Curitiba"},
+  {t:"Uso a Kaviski pra toda a frota da empresa. Nunca tive problema em anos. Quando surge algo urgente, resolvem no mesmo dia. Profissionalismo real.",a:"Fernanda L.",r:"Gestão de Frota Corporativa"},
+  {t:"Perdi o documento do carro e achei que ia ser um pesadelo. Mandei mensagem no WhatsApp e em poucos dias já tinha a segunda via. Muito prático.",a:"Carlos A.",r:"2ª Via de CRLV — Curitiba"}
 ].map(c => `<div class="test-card reveal"><div class="test-stars">${star.repeat(5)}</div><div class="test-txt">"${c.t}"</div><div class="test-author">${c.a}</div><div class="test-role">${c.r}</div></div>`).join('');
 
 // FAQ
 document.getElementById('faq-list').innerHTML = [
-  {q:"Quais documentos preciso para transferir um veículo em Curitiba?",a:"Pessoa física: documento com foto, CPF, comprovante de endereço, CRV original e débitos quitados. Jurídica: também CNPJ e poderes. Orientamos caso a caso."},
-  {q:"Quanto tempo leva para regularizar a documentação?",a:"Depende do serviço, mas a maioria das transferências é finalizada em poucos dias úteis."},
-  {q:"Posso iniciar o atendimento pelo WhatsApp?",a:"Sim. Envie documentos pelo WhatsApp e conduzimos o processo."},
-  {q:"Atendem só Curitiba ou a região metropolitana?",a:"Atendemos Curitiba, região metropolitana e outros estados."},
-  {q:"Quais serviços oferecem?",a:"Transferência, emplacamento 0km, licenciamento, 2ª via, regularização, multas e consultoria."},
-  {q:"Preciso ir pessoalmente?",a:"Nem sempre. Muitos serviços começam pelo WhatsApp. Quando necessário, estamos na Alameda Cabral, 36 — Centro."},
-  {q:"Qual o horário de funcionamento?",a:"Segunda a sexta: 9h às 18h. Sábado: 9h às 12h."}
+  {q:"Quais documentos preciso para transferir um veículo em Curitiba?",a:"Para pessoa física: documento com foto, CPF, comprovante de endereço, CRV original e débitos quitados. Para pessoa jurídica, também CNPJ e comprovante de poderes. Não se preocupe em decorar tudo — nossa equipe orienta exatamente o que você precisa trazer."},
+  {q:"Quanto tempo demora uma transferência de veículo na Kaviski?",a:"A maioria das transferências é finalizada em poucos dias úteis. O prazo exato depende do DETRAN, mas nós acompanhamos cada etapa e mantemos você informado do começo ao fim."},
+  {q:"Posso resolver tudo pelo WhatsApp sem ir presencialmente?",a:"Sim, a maioria dos serviços começa e pode ser conduzida inteiramente pelo WhatsApp. Enviamos as orientações, você manda os documentos por foto e nós cuidamos do resto. Se for necessário ir ao escritório, fica no Centro de Curitiba — Alameda Cabral, 36."},
+  {q:"Vocês atendem só Curitiba ou também a região metropolitana?",a:"Atendemos Curitiba, toda a região metropolitana e temos parcerias em outros estados. Se você está fora de Curitiba, entre em contato pelo WhatsApp que orientamos como funciona."},
+  {q:"Quais serviços de despachante vocês oferecem em Curitiba?",a:"Transferência de veículos, primeiro emplacamento 0km, licenciamento anual, 2ª via de CRV e CRLV, baixa de circulação, alteração de dados, regularização documental, recurso de multas e consultoria especializada."},
+  {q:"Meu veículo tem pendências — vocês conseguem regularizar?",a:"Sim. Fazemos um diagnóstico completo da situação documental do veículo, identificamos todas as pendências e conduzimos a regularização. São mais de 50 anos resolvendo casos simples e complexos."},
+  {q:"Qual o horário de funcionamento da Despachante Kaviski?",a:"Segunda a sexta das 9h às 18h e sábados das 9h às 12h. Pelo WhatsApp, você pode enviar sua mensagem a qualquer momento e respondemos no próximo horário comercial."}
 ].map((f,i) => `<div class="faq-item"><button class="faq-q" onclick="toggleFaq(${i})" id="fq${i}">${f.q}<span class="faq-chev" id="fc${i}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></button><div class="faq-a" id="fa${i}"><p>${f.a}</p></div></div>`).join('');
 
 // Re-observe dynamically added reveals
