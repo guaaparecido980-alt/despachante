@@ -123,13 +123,46 @@ img { max-width: 100%; display: block; }
 /* ═══ HERO ═══ */
 .hero {
   min-height: 100vh; display: flex; align-items: center;
-  background: var(--bk); position: relative; overflow: hidden;
+  background: linear-gradient(160deg, #050505 0%, #0a0a0a 40%, #0f0e08 70%, #0a0a0a 100%);
+  position: relative; overflow: hidden;
 }
 .hero::before {
-  content: ''; position: absolute; top: -30%; right: -15%; width: 70%; height: 160%;
-  background: radial-gradient(ellipse, rgba(242,213,0,.035), transparent 70%);
+  content: ''; position: absolute; top: -20%; right: -10%; width: 65%; height: 140%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(242,213,0,.055), transparent 65%);
   pointer-events: none;
 }
+.hero::after {
+  content: ''; position: absolute; bottom: -10%; left: -15%; width: 50%; height: 80%;
+  background: radial-gradient(ellipse at 30% 70%, rgba(242,213,0,.025), transparent 60%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 2; display: flex; align-items: center; gap: 44px; padding: 130px 0 110px; }
+.hero-main { flex: 1; min-width: 0; }
+.hero-aside { flex: 0 0 300px; }
+.hero-proof {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--y); margin-bottom: 20px;
+  padding-bottom: 18px; border-bottom: 1px solid rgba(242,213,0,.1);
+}
+.hero-proof svg { flex-shrink: 0; }
+.hero-card {
+  background: rgba(242,213,0,.04); border: 1px solid rgba(242,213,0,.12);
+  border-radius: 14px; padding: 28px 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.4), 0 0 60px rgba(242,213,0,.03);
+  display: flex; flex-direction: column; gap: 18px;
+}
+.hero-card-item {
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.hero-card-icon {
+  width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+  background: rgba(242,213,0,.08); border: 1px solid rgba(242,213,0,.12);
+  display: flex; align-items: center; justify-content: center; color: var(--y);
+}
+.hero-card-txt { flex: 1; }
+.hero-card-label { font-size: 14px; font-weight: 700; color: var(--w); margin-bottom: 2px; }
+.hero-card-desc { font-size: 11px; color: var(--gm); line-height: 1.5; }
+.hero-card-divider { height: 1px; background: rgba(242,213,0,.08); }
 .hero-ct { position: relative; z-index: 2; padding: 130px 0 110px; max-width: 660px; }
 .badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -404,6 +437,8 @@ textarea.fi { resize: vertical; min-height: 86px; }
   .test-grid { grid-template-columns: 1fr; }
   .ftr-grid { grid-template-columns: 1fr 1fr; }
   .logo-img { height: 46px; }
+  .hero-inner { flex-direction: column; gap: 32px; }
+  .hero-aside { flex: none; width: 100%; max-width: 400px; }
 }
 @media (max-width: 768px) {
   .nav { display: none; }
@@ -412,6 +447,10 @@ textarea.fi { resize: vertical; min-height: 86px; }
   .hdr-in { height: 64px; }
   .hero h1 { font-size: 27px; }
   .hero-ct { padding: 110px 0 90px; }
+  .hero-inner { padding: 110px 0 90px; }
+  .hero-aside { max-width: 100%; }
+  .hero-card { padding: 22px 20px; }
+  .hero-proof { font-size: 12px; }
   .trust-grid { grid-template-columns: 1fr 1fr; }
   .srv-grid, .steps-grid { grid-template-columns: 1fr; }
   .sec { padding: 56px 0; }
@@ -465,42 +504,93 @@ textarea.fi { resize: vertical; min-height: 86px; }
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero" id="hero">
-  <div class="ctn hero-ct">
-    <div class="reveal">
-      <div style="font-size:11px;color:var(--rd);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:6px;letter-spacing:.02em">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        Não deixe sua documentação virar multa, bloqueio ou dor de cabeça
+  <div class="ctn">
+    <div class="hero-inner">
+      <div class="hero-main">
+        <div class="reveal">
+          <div style="font-size:11px;color:var(--rd);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:6px;letter-spacing:.02em">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Documentação irregular gera multa, bloqueio e apreensão
+          </div>
+          <div class="badge"><span class="badge-dot"></span> Despachante Oficial DETRAN-PR • Curitiba</div>
+        </div>
+        <div class="reveal" style="transition-delay:.1s">
+          <h1>Precisa de despachante em Curitiba? <span class="yl">A Kaviski resolve pra você.</span></h1>
+        </div>
+        <div class="reveal" style="transition-delay:.18s">
+          <div class="hero-proof">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            +50 anos resolvendo documentação veicular em Curitiba
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay:.24s">
+          <p class="hero-p">Transferência, licenciamento, emplacamento e regularização — tudo conduzido por 21 especialistas. Você não lida com burocracia. A gente resolve.</p>
+        </div>
+        <div class="reveal" style="transition-delay:.32s">
+          <div class="hero-bullets">
+            <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Resposta rápida no WhatsApp</span>
+            <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Sem filas, sem burocracia</span>
+            <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Tradição desde 1971</span>
+            <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Centro de Curitiba</span>
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay:.4s">
+          <div class="hero-acts">
+            <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Quero resolver meu problema agora
+            </a>
+            <a href="tel:+554132228060" class="btn-o">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              Falar com especialista
+            </a>
+          </div>
+          <div class="hero-micro">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Atendimento direto · Sem enrolação · Processo seguro
+          </div>
+        </div>
       </div>
-      <div class="badge"><span class="badge-dot"></span> Despachante Oficial DETRAN-PR • Curitiba — Centro</div>
-    </div>
-    <div class="reveal" style="transition-delay:.1s">
-      <h1>Seu problema com <span class="yl">documentação veicular</span> resolvido pelo melhor despachante de Curitiba</h1>
-    </div>
-    <div class="reveal" style="transition-delay:.2s">
-      <p class="hero-p">Transferência, licenciamento, emplacamento e regularização — tudo conduzido pela nossa equipe de 21 especialistas com mais de 50 anos de experiência. Você não lida com burocracia. A gente resolve.</p>
-    </div>
-    <div class="reveal" style="transition-delay:.28s">
-      <div class="hero-bullets">
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Resposta rápida no WhatsApp</span>
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 50+ anos de confiança desde 1971</span>
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Você não enfrenta fila nem burocracia</span>
-        <span class="hero-bul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Escritório no Centro de Curitiba</span>
-      </div>
-    </div>
-    <div class="reveal" style="transition-delay:.36s">
-      <div class="hero-acts">
-        <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Quero resolver meu problema agora
-        </a>
-        <a href="tel:+554132228060" class="btn-o">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Falar com especialista: (41) 3222-8060
-        </a>
-      </div>
-      <div class="hero-micro">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        Atendimento direto com a equipe · Sem enrolação · Processo conduzido com segurança
+
+      <!-- HERO CARD -->
+      <div class="hero-aside reveal" style="transition-delay:.5s">
+        <div class="hero-card">
+          <div class="hero-card-item">
+            <div class="hero-card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--y)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="hero-card-txt">
+              <div class="hero-card-label">WhatsApp direto</div>
+              <div class="hero-card-desc">Fale agora com a equipe. Resposta rápida em horário comercial.</div>
+            </div>
+          </div>
+          <div class="hero-card-divider"></div>
+          <div class="hero-card-item">
+            <div class="hero-card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="hero-card-txt">
+              <div class="hero-card-label">Centro de Curitiba</div>
+              <div class="hero-card-desc">Alameda Cabral, 36 — fácil acesso para toda a cidade e região.</div>
+            </div>
+          </div>
+          <div class="hero-card-divider"></div>
+          <div class="hero-card-item">
+            <div class="hero-card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            </div>
+            <div class="hero-card-txt">
+              <div class="hero-card-label">+50 anos de experiência</div>
+              <div class="hero-card-desc">Desde 1971 resolvendo documentação veicular com segurança e confiança.</div>
+            </div>
+          </div>
+          <div style="margin-top:6px">
+            <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20de%20atendimento." target="_blank" rel="noopener" class="btn-y" style="width:100%;justify-content:center;padding:13px 20px;font-size:12px;border-radius:8px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Resolver agora pelo WhatsApp
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
