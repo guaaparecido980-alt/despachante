@@ -79,38 +79,39 @@ img { max-width: 100%; display: block; }
 /* ═══ HEADER ═══ */
 .hdr {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  transition: background .45s, box-shadow .45s, backdrop-filter .45s, border-color .45s;
+  transition: background .5s cubic-bezier(.22,1,.36,1), box-shadow .5s, backdrop-filter .5s, border-color .5s;
   border-bottom: 1px solid transparent;
-  background: rgba(5,5,5,.2);
+  background: linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,.1) 100%);
 }
 .hdr.solid {
-  background: rgba(8,8,8,.94);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 1px 24px rgba(0,0,0,.35);
-  border-bottom-color: rgba(242,213,0,.06);
+  background: rgba(10,10,10,.88);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  box-shadow: 0 1px 20px rgba(0,0,0,.25);
+  border-bottom-color: rgba(242,213,0,.05);
 }
 .hdr-in {
   max-width: 1120px; margin: 0 auto; padding: 0 28px;
-  display: flex; align-items: center; justify-content: space-between; height: 82px;
+  display: flex; align-items: center; justify-content: space-between; height: 88px;
 }
 .logo { display: flex; align-items: center; flex-shrink: 0; }
 .logo-img {
-  height: 68px; width: auto; object-fit: contain;
-  display: block; transition: opacity var(--t);
+  height: 74px; width: auto; object-fit: contain;
+  display: block; transition: opacity .3s ease;
+  filter: drop-shadow(0 1px 8px rgba(0,0,0,.3));
 }
-.logo:hover .logo-img { opacity: .85; }
-.nav { display: flex; align-items: center; gap: 26px; }
-.nav a { color: rgba(255,255,255,.7); font-size: 13px; font-weight: 500; transition: color var(--t); letter-spacing: .01em; }
-.nav a:hover { color: var(--y); }
+.logo:hover .logo-img { opacity: .88; }
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a { color: rgba(255,255,255,.65); font-size: 13px; font-weight: 500; transition: color var(--t); letter-spacing: .015em; }
+.nav a:hover { color: var(--w); }
 .nav-cta {
   background: var(--y) !important; color: var(--bk) !important;
-  padding: 11px 24px; border-radius: 99px; font-weight: 700 !important;
+  padding: 11px 26px; border-radius: 99px; font-weight: 700 !important;
   font-size: 11px !important; letter-spacing: .05em !important; text-transform: uppercase;
   transition: all var(--t) !important;
-  box-shadow: 0 2px 14px rgba(242,213,0,.12);
+  box-shadow: 0 2px 16px rgba(242,213,0,.1);
 }
-.nav-cta:hover { background: var(--yh) !important; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(242,213,0,.22); }
+.nav-cta:hover { background: var(--yh) !important; transform: translateY(-1px); box-shadow: 0 4px 22px rgba(242,213,0,.2); }
 .mob-tog { display: none; background: none; border: none; color: var(--w); cursor: pointer; padding: 8px; -webkit-tap-highlight-color: transparent; }
 
 /* ═══ MOBILE MENU ═══ */
@@ -124,7 +125,7 @@ img { max-width: 100%; display: block; }
 }
 .mob-menu.open { opacity: 1; visibility: visible; pointer-events: all; }
 .mob-menu a { color: var(--w); font-size: 18px; font-weight: 500; padding: 10px 20px; -webkit-tap-highlight-color: transparent; display: block; }
-.mob-menu .mob-logo { height: 52px; width: auto; object-fit: contain; margin-bottom: 20px; }
+.mob-menu .mob-logo { height: 56px; width: auto; object-fit: contain; margin-bottom: 24px; filter: drop-shadow(0 1px 8px rgba(0,0,0,.3)); }
 .mob-close {
   position: absolute; top: 20px; right: 20px; background: none; border: none;
   color: var(--w); cursor: pointer; padding: 12px; -webkit-tap-highlight-color: transparent;
@@ -150,7 +151,7 @@ img { max-width: 100%; display: block; }
 .hero-inner {
   position: relative; z-index: 2;
   display: flex; align-items: center; gap: 52px;
-  padding: 140px 0 116px;
+  padding: 148px 0 120px;
 }
 .hero-main { flex: 1; min-width: 0; }
 .hero-aside { flex: 0 0 310px; align-self: center; }
@@ -176,7 +177,7 @@ img { max-width: 100%; display: block; }
 .hero-card-label { font-size: 14px; font-weight: 700; color: var(--w); margin-bottom: 3px; }
 .hero-card-desc { font-size: 11px; color: var(--gm); line-height: 1.55; }
 .hero-card-divider { height: 1px; background: rgba(242,213,0,.07); }
-.hero-ct { position: relative; z-index: 2; padding: 140px 0 116px; max-width: 660px; }
+.hero-ct { position: relative; z-index: 2; padding: 148px 0 120px; max-width: 660px; }
 .badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(242,213,0,.05); border: 1px solid rgba(242,213,0,.12);
@@ -452,19 +453,19 @@ textarea.fi { resize: vertical; min-height: 86px; }
   .urg-layout, .reasons-layout, .hist-layout, .contact-layout { grid-template-columns: 1fr; gap: 32px; }
   .test-grid { grid-template-columns: 1fr; }
   .ftr-grid { grid-template-columns: 1fr 1fr; }
-  .logo-img { height: 58px; }
-  .hdr-in { height: 76px; }
+  .logo-img { height: 62px; }
+  .hdr-in { height: 80px; }
   .hero-inner { flex-direction: column; gap: 36px; }
   .hero-aside { flex: none; width: 100%; max-width: 420px; }
 }
 @media (max-width: 768px) {
   .nav { display: none; }
   .mob-tog { display: flex; align-items: center; justify-content: center; }
-  .logo-img { height: 48px; }
-  .hdr-in { height: 68px; padding: 0 18px; }
+  .logo-img { height: 52px; }
+  .hdr-in { height: 70px; padding: 0 18px; }
   .hero h1 { font-size: 26px; }
-  .hero-ct { padding: 108px 0 84px; }
-  .hero-inner { padding: 108px 0 84px; gap: 28px; }
+  .hero-ct { padding: 112px 0 84px; }
+  .hero-inner { padding: 112px 0 84px; gap: 28px; }
   .hero-aside { max-width: 100%; }
   .hero-card { padding: 24px 20px; gap: 16px; }
   .hero-proof { font-size: 12px; margin-bottom: 16px; padding-bottom: 14px; }
@@ -566,7 +567,7 @@ textarea.fi { resize: vertical; min-height: 86px; }
             </a>
             <a href="tel:+554132228060" class="btn-o">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-              Falar com especialista
+              Ligar agora: (41) 3222-8060
             </a>
           </div>
           <div class="hero-micro">
@@ -873,18 +874,23 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </div>
 
 <script>
-// ═══ MOBILE MENU — BULLETPROOF v2 ═══
+// ═══ MOBILE MENU — FINAL v3 ═══
+var menuEl = document.getElementById('mobmenu');
 function openMenu() {
   document.documentElement.classList.add('menu-open');
-  document.getElementById('mobmenu').classList.add('open');
+  menuEl.classList.add('open');
 }
 function closeMenu() {
-  document.getElementById('mobmenu').classList.remove('open');
-  document.documentElement.classList.remove('menu-open');
+  menuEl.classList.remove('open');
+  // Small delay to let transition finish before restoring scroll
+  setTimeout(function() {
+    document.documentElement.classList.remove('menu-open');
+  }, 50);
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
-// Prevent scroll on menu overlay touch
-document.getElementById('mobmenu').addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
+menuEl.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
+// Safety: clicking outside menu content area closes it
+menuEl.addEventListener('click', function(e) { if (e.target === menuEl) closeMenu(); });
 
 // ═══ SCROLL HEADER ═══
 window.addEventListener('scroll', () => {
