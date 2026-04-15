@@ -116,8 +116,8 @@ img { max-width: 100%; display: block; }
 
 /* ═══ MOBILE MENU ═══ */
 .mob-menu {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999;
-  background: rgba(5,5,5,.99);
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
+  background: #050505;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity .3s ease, visibility .3s ease;
@@ -130,6 +130,7 @@ img { max-width: 100%; display: block; }
   position: absolute; top: 20px; right: 20px; background: none; border: none;
   color: var(--w); cursor: pointer; padding: 12px; -webkit-tap-highlight-color: transparent;
   width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  z-index: 10000;
 }
 
 /* ═══ HERO ═══ */
@@ -283,7 +284,7 @@ img { max-width: 100%; display: block; }
 /* ═══ STEPS ═══ */
 .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
 .step { text-align: center; }
-.step-n { font-family: var(--fd); font-size: 42px; color: var(--y); opacity: .15; line-height: 1; margin-bottom: 8px; }
+.step-n { font-family: var(--fd); font-size: 42px; color: var(--yg); opacity: .3; line-height: 1; margin-bottom: 8px; }
 .step-t { font-family: var(--fd); font-size: 16px; color: var(--bk); margin-bottom: 4px; }
 .step-d { font-size: 12px; color: var(--gm); line-height: 1.55; }
 
