@@ -489,6 +489,35 @@ textarea.fi { resize: vertical; min-height: 86px; }
   .sh h2 { font-size: clamp(22px, 6vw, 30px); }
   input, select, textarea, button { font-size: 16px !important; }
 }
+
+/* ═══ COOKIE BANNER ═══ */
+.cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 95;
+  background: rgba(10,10,10,.96); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(242,213,0,.08);
+  padding: 18px 24px; display: none; align-items: center; justify-content: center; gap: 16px;
+  flex-wrap: wrap;
+}
+.cookie-banner.show { display: flex; }
+.cookie-text { font-size: 13px; color: var(--gt); max-width: 600px; line-height: 1.6; }
+.cookie-text a { color: var(--y); font-weight: 600; }
+.cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+.cookie-accept {
+  background: var(--y); color: var(--bk); border: none; padding: 10px 24px;
+  border-radius: 99px; font-weight: 700; font-size: 12px; cursor: pointer;
+  font-family: var(--fb); transition: all var(--t); letter-spacing: .02em;
+}
+.cookie-accept:hover { background: var(--yh); }
+.cookie-config {
+  background: transparent; color: var(--gt); border: 1px solid rgba(255,255,255,.12);
+  padding: 10px 20px; border-radius: 99px; font-size: 12px; cursor: pointer;
+  font-family: var(--fb); transition: all var(--t); font-weight: 500;
+}
+.cookie-config:hover { border-color: rgba(255,255,255,.25); color: var(--w); }
+@media (max-width: 768px) {
+  .cookie-banner { flex-direction: column; text-align: center; padding: 16px 18px 86px; }
+  .cookie-text { font-size: 12px; }
+}
 </style>
 </head>
 <body>
@@ -836,7 +865,8 @@ textarea.fi { resize: vertical; min-height: 86px; }
         <a href="#funciona" class="ftr-link">Como funciona</a>
         <a href="#faq" class="ftr-link">Dúvidas</a>
         <a href="#contato" class="ftr-link">Contato</a>
-        <a href="#" class="ftr-link">Política de Privacidade</a>
+        <a href="politica-de-privacidade.html" target="_blank" rel="noopener" class="ftr-link">Política de Privacidade</a>
+        <a href="cookies.html" target="_blank" rel="noopener" class="ftr-link">Política de Cookies</a>
       </div>
       <div>
         <div class="ftr-col-t">Contato</div>
@@ -1016,6 +1046,30 @@ function toggleFaq(i) {
   if (openFaq === i) { a.classList.remove('open'); c.classList.remove('open'); openFaq = null; }
   else { a.classList.add('open'); c.classList.add('open'); openFaq = i; }
 }
+
+// ═══ COOKIE BANNER ═══
+(function() {
+  var banner = document.getElementById('cookieBanner');
+  if (!localStorage.getItem('kaviski_cookies')) {
+    banner.classList.add('show');
+  }
+  window.acceptCookies = function() {
+    localStorage.setItem('kaviski_cookies', 'accepted');
+    banner.classList.remove('show');
+  };
+})();
 </script>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-text">
+    Usamos cookies para melhorar sua experiência no site. Ao continuar navegando, você concorda com nossa <a href="politica-de-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a> e <a href="cookies.html" target="_blank" rel="noopener">Política de Cookies</a>.
+  </div>
+  <div class="cookie-btns">
+    <button class="cookie-accept" onclick="acceptCookies()">Aceitar</button>
+    <a href="cookies.html" target="_blank" rel="noopener" class="cookie-config">Saber mais</a>
+  </div>
+</div>
+
 </body>
 </html>
