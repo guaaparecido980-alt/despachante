@@ -67,7 +67,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body { font-family: var(--fb); color: var(--gt); background: var(--bk); line-height: 1.65; overflow-x: hidden; }
-body.menu-open { overflow: hidden; position: fixed; width: 100%; }
+html.menu-open, html.menu-open body { overflow: hidden; height: 100%; touch-action: none; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
@@ -115,17 +115,19 @@ img { max-width: 100%; display: block; }
 
 /* ═══ MOBILE MENU ═══ */
 .mob-menu {
-  position: fixed; inset: 0; z-index: 999; background: rgba(5,5,5,.98);
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999;
+  background: rgba(5,5,5,.99);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
-  opacity: 0; pointer-events: none; transition: opacity .35s ease;
-  -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .3s ease, visibility .3s ease;
+  overscroll-behavior: contain;
 }
-.mob-menu.open { opacity: 1; pointer-events: all; }
-.mob-menu a { color: var(--w); font-size: 18px; font-weight: 500; padding: 8px 16px; -webkit-tap-highlight-color: transparent; }
+.mob-menu.open { opacity: 1; visibility: visible; pointer-events: all; }
+.mob-menu a { color: var(--w); font-size: 18px; font-weight: 500; padding: 10px 20px; -webkit-tap-highlight-color: transparent; display: block; }
 .mob-menu .mob-logo { height: 52px; width: auto; object-fit: contain; margin-bottom: 20px; }
 .mob-close {
   position: absolute; top: 20px; right: 20px; background: none; border: none;
-  color: var(--w); cursor: pointer; padding: 10px; -webkit-tap-highlight-color: transparent;
+  color: var(--w); cursor: pointer; padding: 12px; -webkit-tap-highlight-color: transparent;
   width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
 }
 
@@ -871,21 +873,18 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </div>
 
 <script>
-// ═══ MOBILE MENU — BULLETPROOF ═══
-let scrollPos = 0;
+// ═══ MOBILE MENU — BULLETPROOF v2 ═══
 function openMenu() {
-  scrollPos = window.pageYOffset;
-  document.body.classList.add('menu-open');
-  document.body.style.top = -scrollPos + 'px';
+  document.documentElement.classList.add('menu-open');
   document.getElementById('mobmenu').classList.add('open');
 }
 function closeMenu() {
   document.getElementById('mobmenu').classList.remove('open');
-  document.body.classList.remove('menu-open');
-  document.body.style.top = '';
-  window.scrollTo(0, scrollPos);
+  document.documentElement.classList.remove('menu-open');
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+// Prevent scroll on menu overlay touch
+document.getElementById('mobmenu').addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
 
 // ═══ SCROLL HEADER ═══
 window.addEventListener('scroll', () => {
