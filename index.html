@@ -67,7 +67,8 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body { font-family: var(--fb); color: var(--gt); background: var(--bk); line-height: 1.65; overflow-x: hidden; }
-html.menu-open, html.menu-open body { overflow: hidden; height: 100%; touch-action: none; }
+html.menu-open { overflow: hidden; }
+html.menu-open body { overflow: hidden; touch-action: none; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
@@ -125,7 +126,7 @@ img { max-width: 100%; display: block; }
 }
 .mob-menu.open { opacity: 1; visibility: visible; pointer-events: all; }
 .mob-menu a { color: var(--w); font-size: 18px; font-weight: 500; padding: 10px 20px; -webkit-tap-highlight-color: transparent; display: block; }
-.mob-menu .mob-logo { height: 56px; width: auto; object-fit: contain; margin-bottom: 24px; filter: drop-shadow(0 1px 8px rgba(0,0,0,.3)); }
+.mob-menu .mob-logo { height: 64px; width: auto; object-fit: contain; margin-bottom: 24px; filter: drop-shadow(0 1px 8px rgba(0,0,0,.3)); }
 .mob-close {
   position: absolute; top: 20px; right: 20px; background: none; border: none;
   color: var(--w); cursor: pointer; padding: 12px; -webkit-tap-highlight-color: transparent;
@@ -462,11 +463,11 @@ textarea.fi { resize: vertical; min-height: 86px; }
 @media (max-width: 768px) {
   .nav { display: none; }
   .mob-tog { display: flex; align-items: center; justify-content: center; }
-  .logo-img { height: 50px; }
-  .hdr-in { height: 66px; padding: 0 18px; }
+  .logo-img { height: 58px; }
+  .hdr-in { height: 72px; padding: 0 18px; }
   .hero h1 { font-size: 26px; }
-  .hero-ct { padding: 112px 0 84px; }
-  .hero-inner { padding: 112px 0 84px; gap: 28px; }
+  .hero-ct { padding: 116px 0 84px; }
+  .hero-inner { padding: 116px 0 84px; gap: 28px; }
   .hero-aside { max-width: 100%; }
   .hero-card { padding: 24px 20px; gap: 16px; }
   .hero-proof { font-size: 12px; margin-bottom: 16px; padding-bottom: 14px; }
@@ -906,13 +907,16 @@ textarea.fi { resize: vertical; min-height: 86px; }
 
 <script>
 // ═══ MOBILE MENU ═══
+var _menuScroll = 0;
 function openMenu() {
-  document.getElementById('mobmenu').classList.add('open');
+  _menuScroll = window.pageYOffset || document.documentElement.scrollTop;
   document.documentElement.classList.add('menu-open');
+  document.getElementById('mobmenu').classList.add('open');
 }
 function closeMenu() {
   document.getElementById('mobmenu').classList.remove('open');
   document.documentElement.classList.remove('menu-open');
+  window.scrollTo(0, _menuScroll);
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
 document.getElementById('mobmenu').addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
