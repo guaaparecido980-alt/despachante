@@ -75,7 +75,8 @@ img { max-width: 100%; display: block; }
 .ctn { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 .sec { padding: 88px 0; }
 .sec-w { background: var(--ow); color: var(--bk); }
-.sec-b { background: var(--bk); }
+.sec-b { background: var(--bk); position: relative; overflow: hidden; }
+.sec-b::before { content: ""; position: absolute; top: -40%; right: -20%; width: 60%; height: 180%; background: radial-gradient(ellipse, rgba(242,213,0,.025), transparent 65%); pointer-events: none; }
 .sec-warm { background: linear-gradient(180deg, #0d0c08 0%, #110f08 100%); color: var(--w); }
 
 /* ═══ HEADER ═══ */
@@ -231,7 +232,7 @@ img { max-width: 100%; display: block; }
 .hero-micro { font-size: 11px; color: var(--gm); display: flex; align-items: center; gap: 6px; }
 
 /* ═══ TRUST ═══ */
-.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(242,213,0,.08); border-top: 2px solid rgba(242,213,0,.1); border-bottom: 2px solid rgba(242,213,0,.1); }
+.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(242,213,0,.06); }
 .trust-card {
   background: var(--gr); padding: 30px 18px; text-align: center;
   transition: all var(--t); border-bottom: 3px solid transparent;
@@ -258,7 +259,7 @@ img { max-width: 100%; display: block; }
 /* ═══ SERVICES ═══ */
 .srv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
 .srv-card {
-  background: var(--bk); border: 1px solid rgba(255,255,255,.06);
+  background: var(--gr); border: 1px solid rgba(255,255,255,.04);
   border-radius: var(--r); padding: 26px 22px;
   transition: all var(--t); position: relative; overflow: hidden;
 }
@@ -267,8 +268,8 @@ img { max-width: 100%; display: block; }
   background: var(--y); transform: scaleX(0); transform-origin: left; transition: transform .4s;
 }
 .srv-card:hover {
-  border-color: rgba(242,213,0,.15);
-  transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.18);
+  background: var(--gr2); border-color: rgba(242,213,0,.08);
+  transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.3);
 }
 .srv-card:hover::after { transform: scaleX(1); }
 .srv-icon { color: var(--y); margin-bottom: 14px; }
@@ -285,17 +286,17 @@ img { max-width: 100%; display: block; }
 
 /* ═══ STEPS ═══ */
 .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
-.step { text-align: center; padding: 24px 16px; border-radius: var(--r); background: var(--gr); border: 1px solid rgba(255,255,255,.06); transition: all var(--t); }
-.step:hover { border-color: var(--y); box-shadow: 0 4px 16px rgba(242,213,0,.06); }
-.step-n { font-family: var(--fd); font-size: 42px; color: var(--y); opacity: .2; line-height: 1; margin-bottom: 8px; }
-.step-t { font-family: var(--fd); font-size: 16px; color: var(--w); margin-bottom: 4px; }
-.step-d { font-size: 12px; color: var(--gt); line-height: 1.55; }
+.step { text-align: center; padding: 24px 16px; border-radius: var(--r); background: var(--w); border: 1px solid var(--gl); transition: all var(--t); }
+.step:hover { border-color: var(--yg); box-shadow: 0 4px 16px rgba(0,0,0,.04); }
+.step-n { font-family: var(--fd); font-size: 42px; color: var(--yg); opacity: .3; line-height: 1; margin-bottom: 8px; }
+.step-t { font-family: var(--fd); font-size: 16px; color: var(--bk); margin-bottom: 4px; }
+.step-d { font-size: 12px; color: var(--gm); line-height: 1.55; }
 
 /* ═══ URGENCY ═══ */
-.urg-w { background: #FFF9F0 !important; border-top: 2px solid rgba(211,47,47,.08); border-bottom: 2px solid rgba(211,47,47,.08); }
+.urg { background: var(--bk2); border-top: 1px solid rgba(211,47,47,.08); border-bottom: 1px solid rgba(211,47,47,.08); }
 .urg-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
 .urg-list { display: flex; flex-direction: column; gap: 12px; }
-.urg-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--gr2); line-height: 1.6; padding: 12px 16px; background: var(--w); border-radius: var(--rs); border: 1px solid rgba(211,47,47,.08); }
+.urg-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--gt); line-height: 1.6; }
 .urg-item svg { color: var(--rd); flex-shrink: 0; margin-top: 2px; }
 
 /* ═══ REASONS ═══ */
@@ -303,31 +304,31 @@ img { max-width: 100%; display: block; }
 .reasons-list { display: flex; flex-direction: column; gap: 9px; }
 .reason-item {
   display: flex; align-items: center; gap: 11px;
-  font-size: 13px; color: var(--gt); font-weight: 500;
+  font-size: 13px; color: var(--bk); font-weight: 500;
   padding: 12px 16px; border-radius: var(--rs);
-  background: var(--gr); border: 1px solid rgba(255,255,255,.06); transition: all var(--t);
+  background: var(--w); border: 1px solid var(--gl); transition: all var(--t);
 }
 .reason-item:hover { border-color: var(--y); border-left: 3px solid var(--y); box-shadow: 0 2px 12px rgba(242,213,0,.06); }
-.reason-item svg { color: var(--y); flex-shrink: 0; }
+.reason-item svg { color: var(--yg); flex-shrink: 0; }
 
 /* ═══ HISTORY ═══ */
 .hist-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: flex-start; }
-.hist-year { font-family: var(--fd); font-size: 72px; color: rgba(230,194,0,.15); line-height: 1; margin-bottom: -18px; }
-.hist-txt { font-size: 14px; color: #666; line-height: 1.8; }
+.hist-year { font-family: var(--fd); font-size: 72px; color: rgba(242,213,0,.06); line-height: 1; margin-bottom: -18px; }
+.hist-txt { font-size: 14px; color: var(--gt); line-height: 1.8; }
 .hist-txt p { margin-bottom: 12px; }
 .hist-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(230,194,0,.08); border: 1px solid rgba(230,194,0,.2);
+  background: rgba(242,213,0,.06); border: 1px solid rgba(242,213,0,.1);
   border-radius: var(--rs); padding: 12px 18px; margin-top: 12px;
-  color: var(--yg); font-weight: 600; font-size: 13px;
+  color: var(--y); font-weight: 600; font-size: 13px;
 }
 .hist-stats { display: flex; flex-direction: column; gap: 16px; }
 .hist-stat {
-  background: var(--bk); border: 1px solid rgba(255,255,255,.06);
+  background: var(--gr); border: 1px solid rgba(255,255,255,.04);
   border-radius: var(--rs); padding: 20px;
 }
 .hist-stat-n { font-family: var(--fd); font-size: 28px; color: var(--y); }
-.hist-stat-l { font-size: 11px; color: var(--gt); font-weight: 500; }
+.hist-stat-l { font-size: 11px; color: var(--gm); font-weight: 500; }
 
 /* ═══ TESTIMONIALS ═══ */
 .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
@@ -343,22 +344,22 @@ img { max-width: 100%; display: block; }
 
 /* ═══ FAQ ═══ */
 .faq-list { max-width: 700px; margin: 40px auto 0; }
-.faq-item { border-bottom: 1px solid var(--gl); }
+.faq-item { border-bottom: 1px solid rgba(255,255,255,.06); }
 .faq-q {
   width: 100%; display: flex; align-items: center; justify-content: space-between;
   padding: 20px 0; background: none; border: none; cursor: pointer;
-  font-size: 14px; font-weight: 600; color: var(--bk); text-align: left;
+  font-size: 14px; font-weight: 600; color: var(--w); text-align: left;
   font-family: var(--fb); transition: color var(--t);
 }
-.faq-q:hover { color: var(--yg); }
-.faq-chev { transition: transform .3s; flex-shrink: 0; margin-left: 12px; color: var(--yg); }
+.faq-q:hover { color: var(--y); }
+.faq-chev { transition: transform .3s; flex-shrink: 0; margin-left: 12px; color: var(--y); }
 .faq-chev.open { transform: rotate(180deg); }
 .faq-a {
   overflow: hidden; max-height: 0;
   transition: max-height .4s ease, padding .4s;
 }
 .faq-a.open { max-height: 320px; padding-bottom: 20px; }
-.faq-a p { font-size: 13px; color: #666; line-height: 1.7; }
+.faq-a p { font-size: 13px; color: var(--gt); line-height: 1.7; }
 
 /* ═══ CTA FINAL ═══ */
 .cta-final {
@@ -665,10 +666,10 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </div>
 
 <!-- ═══════════════════ SERVIÇOS ═══════════════════ -->
-<section class="sec sec-w" id="servicos">
+<section class="sec sec-b" id="servicos">
   <div class="ctn">
-    <div class="sh sh-w reveal">
-      <span class="sh-label sh-label-g">Serviços de Despachante em Curitiba</span>
+    <div class="sh sh-d reveal">
+      <span class="sh-label">Serviços de Despachante em Curitiba</span>
       <h2>Cada problema documental tem solução — e a gente resolve pra você</h2>
       <p>Não enfrente filas, prazos confusos ou processos burocráticos sozinho. Nossa equipe conduz tudo.</p>
     </div>
@@ -677,16 +678,16 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </section>
 
 <!-- ═══════════════════ COMO FUNCIONA ═══════════════════ -->
-<section class="sec sec-b" id="funciona">
+<section class="sec sec-w" id="funciona">
   <div class="ctn">
-    <div class="sh sh-d reveal">
-      <span class="sh-label">Simples e sem enrolação</span>
+    <div class="sh sh-w reveal">
+      <span class="sh-label sh-label-g">Simples e sem enrolação</span>
       <h2>Veja como é fácil resolver com a Kaviski</h2>
       <p>Enquanto você cuida da sua vida, nossa equipe cuida de toda a burocracia. São 4 etapas simples:</p>
     </div>
     <div class="steps-grid" id="steps-grid"></div>
     <div style="text-align:center;margin-top:32px" class="reveal">
-      <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20gostaria%20de%20iniciar%20um%20atendimento%20com%20a%20Despachante%20Kaviski." target="_blank" rel="noopener" class="btn-y">
+      <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20gostaria%20de%20iniciar%20um%20atendimento%20com%20a%20Despachante%20Kaviski." target="_blank" rel="noopener" class="btn-y" style="background:var(--bk);color:var(--y)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Quero resolver agora
       </a>
@@ -696,15 +697,15 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </section>
 
 <!-- ═══════════════════ URGÊNCIA ═══════════════════ -->
-<section class="sec sec-w urg-w" id="urgencia">
+<section class="sec urg" id="urgencia">
   <div class="ctn">
     <div class="urg-layout">
       <div class="reveal">
         <div style="color:var(--rd);margin-bottom:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <span style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rd)">Você sabia?</span>
-        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin:8px 0 12px">Documentação irregular gera multa, bloqueio e apreensão do veículo</h2>
-        <p style="font-size:14px;color:var(--gm);line-height:1.75;margin-bottom:22px">Cada dia que passa com pendência documental é um risco real. Veja o que pode acontecer se você não regularizar:</p>
-        <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20regularizar%20meu%20ve%C3%ADculo." target="_blank" rel="noopener" class="btn-y">
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin:8px 0 12px">Documentação irregular gera multa, bloqueio e apreensão do veículo</h2>
+        <p style="font-size:14px;color:var(--gt);line-height:1.75;margin-bottom:22px">Cada dia que passa com pendência documental é um risco real. Veja o que pode acontecer se você não regularizar:</p>
+        <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20preciso%20regularizar%20meu%20ve%C3%ADculo." target="_blank" rel="noopener" class="btn-y" style="background:var(--bk);color:var(--y)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Quero resolver antes que complique
         </a>
@@ -718,13 +719,13 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </section>
 
 <!-- ═══════════════════ DIFERENCIAIS ═══════════════════ -->
-<section class="sec sec-b" id="por-que">
+<section class="sec sec-w" id="por-que">
   <div class="ctn">
     <div class="reasons-layout">
       <div class="reveal">
-        <span class="sh-label">Por que a Kaviski?</span>
-        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin-top:8px;margin-bottom:12px">Enquanto outros executam processos, a Kaviski orienta você em cada etapa</h2>
-        <p style="font-size:14px;color:var(--gt);line-height:1.75;margin-bottom:22px">Qualquer despachante pode protocolar um documento. Poucos têm 50 anos de experiência, uma equipe de 21 profissionais e o compromisso de explicar cada passo com clareza para você.</p>
+        <span class="sh-label sh-label-g">Por que a Kaviski?</span>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-top:8px;margin-bottom:12px">Enquanto outros executam processos, a Kaviski orienta você em cada etapa</h2>
+        <p style="font-size:14px;color:var(--gm);line-height:1.75;margin-bottom:22px">Qualquer despachante pode protocolar um documento. Poucos têm 50 anos de experiência, uma equipe de 21 profissionais e o compromisso de explicar cada passo com clareza para você.</p>
         <a href="https://api.whatsapp.com/send?phone=554130278060&text=Ol%C3%A1%2C%20gostaria%20de%20entender%20como%20a%20Kaviski%20pode%20me%20ajudar%20com%20meu%20caso." target="_blank" rel="noopener" class="btn-y">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Falar com especialista
@@ -738,13 +739,13 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </section>
 
 <!-- ═══════════════════ HISTÓRIA ═══════════════════ -->
-<section class="sec sec-w" id="historia">
+<section class="sec sec-b" id="historia">
   <div class="ctn">
     <div class="hist-layout">
       <div class="reveal">
-        <span class="sh-label sh-label-g">Mais de 50 anos em Curitiba</span>
+        <span class="sh-label">Mais de 50 anos em Curitiba</span>
         <div class="hist-year">1971</div>
-        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--bk);margin-bottom:16px">Uma história de confiança construída cliente a cliente</h2>
+        <h2 style="font-family:var(--fd);font-size:clamp(22px,3vw,32px);color:var(--w);margin-bottom:16px">Uma história de confiança construída cliente a cliente</h2>
         <div class="hist-txt">
           <p>Quando João Antonio Kaviski abriu as portas na Alameda Cabral, no Centro de Curitiba, em 1971, o compromisso era simples: resolver a documentação dos clientes com honestidade e eficiência. Esse compromisso nunca mudou.</p>
           <p>Mais de 50 anos depois, a empresa cresceu para 21 profissionais especializados, construiu parcerias em diversos estados e conquistou reconhecimento de sindicatos, multinacionais e milhares de clientes em todo o Paraná.</p>
@@ -763,16 +764,16 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </section>
 
 <!-- ═══════════════════ PROVA SOCIAL ═══════════════════ -->
-<section class="sec sec-b" id="depoimentos">
+<section class="sec sec-w" id="depoimentos">
   <div class="ctn">
-    <div class="sh sh-d reveal">
-      <span class="sh-label">Clientes reais, resultados reais</span>
+    <div class="sh sh-w reveal">
+      <span class="sh-label sh-label-g">Clientes reais, resultados reais</span>
       <h2>Por que milhares de clientes confiam na Kaviski há décadas</h2>
       <p>Quem resolve com a gente, volta e recomenda. Veja o que dizem:</p>
     </div>
     <div style="display:flex;justify-content:center;gap:32px;margin-bottom:28px;flex-wrap:wrap" class="reveal">
-      <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--w)">50+</div><div style="font-size:10px;color:var(--gt);font-weight:600;text-transform:uppercase;letter-spacing:.08em">anos de mercado</div></div>
-      <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--w)">1.081</div><div style="font-size:10px;color:var(--gt);font-weight:600;text-transform:uppercase;letter-spacing:.08em">avaliações no Google</div></div>
+      <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--bk)">50+</div><div style="font-size:10px;color:var(--gt);font-weight:600;text-transform:uppercase;letter-spacing:.08em">anos de mercado</div></div>
+      <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--bk)">1.081</div><div style="font-size:10px;color:var(--gt);font-weight:600;text-transform:uppercase;letter-spacing:.08em">avaliações no Google</div></div>
       <div style="text-align:center"><div style="font-family:var(--fd);font-size:32px;color:var(--y)">★ 4,9</div><div style="font-size:10px;color:var(--gt);font-weight:600;text-transform:uppercase;letter-spacing:.08em">nota no Google</div></div>
     </div>
     <div class="test-grid" id="test-grid"></div>
@@ -786,10 +787,10 @@ textarea.fi { resize: vertical; min-height: 86px; }
 </section>
 
 <!-- ═══════════════════ FAQ ═══════════════════ -->
-<section class="sec sec-w" id="faq">
+<section class="sec sec-b" id="faq">
   <div class="ctn">
-    <div class="sh sh-w reveal">
-      <span class="sh-label sh-label-g">Dúvidas sobre despachante em Curitiba</span>
+    <div class="sh sh-d reveal">
+      <span class="sh-label">Dúvidas sobre despachante em Curitiba</span>
       <h2>Perguntas que nossos clientes fazem antes de resolver</h2>
       <p>Se sua dúvida está aqui, a resposta é rápida. Se não está, fale com a gente.</p>
     </div>
